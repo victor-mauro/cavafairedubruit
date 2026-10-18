@@ -118,8 +118,8 @@
   /* 4 bis. PROJETS ----------------------------------------------------------------------
      Un clic (ou un toucher) sur PROJETS affiche / masque d'un coup la liste des projets
      (site.css) au lieu d'ouvrir directement le projet le plus récent (lien conservé sans
-     JavaScript). Survoler un projet de la liste fait « grésiller » le logo
-     (data-logo="glitch", section 1). */
+     JavaScript). Le clic fait « grésiller » le logo, tout comme le survol d'un projet
+     de la liste (data-logo="glitch", section 1). */
   bloc('projets', () => {
     const projets = document.querySelector('.projets');
     if (projets) {
@@ -128,6 +128,7 @@
       bouton.addEventListener('click', (e) => {
         e.preventDefault();
         bouton.setAttribute('aria-expanded', String(projets.classList.toggle('est-ouvert')));
+        logoGlitch(); // le logo « grésille » à chaque dépli / repli
       });
     }
   });
