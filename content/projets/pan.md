@@ -5,8 +5,9 @@ menu_fr: Pan
 menu_en: Pan
 titre_fr: PAN
 titre_en: PAN
-onglet_fr: PAN
-onglet_en: PAN
+# onglet : titre de l'onglet et du résultat Google (suivi de « — ça va faire du bruit. »).
+onglet_fr: Pan, carafe musicale
+onglet_en: Pan, a musical carafe
 
 credits:
   - rubrique_fr: Co-auteur
@@ -27,6 +28,34 @@ medias:
     hash: e190f66380
     format_video: 6/5
   - paire: [pan-07.png, pan-08.png]
+
+# Textes alternatifs des images (alt) : lus par Google et les lecteurs d'écran,
+# invisibles à l'écran. Un élément par image : nom du fichier, puis le texte en français et en anglais.
+alt:
+  - image: pan-01.jpg
+    texte_fr: Carafe Pan en céramique blanche, au corps rainuré et à l'anse-sifflet
+    texte_en: Pan carafe in white ceramic, with a ribbed body and a whistle handle
+  - image: pan-02.jpg
+    texte_fr: Carafe Pan, émail en dégradé corail
+    texte_en: Pan carafe with a coral gradient glaze
+  - image: pan-03.jpg
+    texte_fr: Carafe Pan, émail en dégradé vert de gris
+    texte_en: Pan carafe with a sage green gradient glaze
+  - image: pan-04.jpg
+    texte_fr: Carafe Pan, émail en dégradé jaune
+    texte_en: Pan carafe with a yellow gradient glaze
+  - image: pan-05.jpg
+    texte_fr: Carafe Pan, émail en dégradé noir et jaune
+    texte_en: Pan carafe with a black and yellow gradient glaze
+  - image: pan-06.jpg
+    texte_fr: Carafe Pan corail vue de dos : le sifflet intégré à l'anse
+    texte_en: Coral Pan carafe from the back: the whistle built into the handle
+  - image: pan-07.png
+    texte_fr: Vase siffleur précolombien en terre cuite, source d'inspiration de Pan
+    texte_en: Pre-Columbian terracotta whistling vessel, the inspiration for Pan
+  - image: pan-08.png
+    texte_fr: Prototype de Pan : deux tubes reliés en U, tenus dans une main
+    texte_en: Pan prototype: two tubes joined in a U shape, held in one hand
 ---
 
 ## fr

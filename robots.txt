@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /content/
+Disallow: /templates/
+Disallow: /build.mjs
+
+Sitemap: https://cavafairedubruit.fr/sitemap.xml

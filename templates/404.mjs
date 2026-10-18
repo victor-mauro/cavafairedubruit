@@ -12,7 +12,7 @@ export function page404(ctx) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="/css/site.css?v=${ctx.versions.css}">
-  <link rel="icon" href="/images/interface/favicon.png" type="image/png">
+  <link rel="icon" href="/images/interface/favicon.png?v=${ctx.versions.icone}" type="image/png" sizes="96x96">
 </head>
 <body class="page page--404">
   <main class="introuvable">

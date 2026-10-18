@@ -6,8 +6,9 @@ menu_fr: Fontaine 'O'
 menu_en: 'O' Fountain
 titre_fr: INSTALLATION "O"
 titre_en: "O" INSTALLATION
-onglet_fr: Fontaine "O"
-onglet_en: "O" Fountain
+# onglet : titre de l'onglet et du résultat Google (suivi de « — ça va faire du bruit. »).
+onglet_fr: Fontaine « O », installation sur l'eau
+onglet_en: "'O' Fountain, an installation on water"
 
 credits:
   - rubrique_fr: Crédit photo
@@ -30,6 +31,28 @@ medias:
     format_video: 6/5
   - paire: [o-04.jpg, o-05.jpg]
   - image: o-06.png
+
+# Textes alternatifs des images (alt) : lus par Google et les lecteurs d'écran,
+# invisibles à l'écran. Un élément par image : nom du fichier, puis le texte en français et en anglais.
+alt:
+  - image: o-01.jpg
+    texte_fr: Fontaine « O » : cercle en inox posé sur le lac, sous les arbres du parc de la Maison Blanche à Marseille
+    texte_en: The 'O' fountain: a stainless steel ring on the lake, beneath the trees of the Parc de la Maison Blanche in Marseille
+  - image: o-02.jpg
+    texte_fr: Ondes concentriques qui se rencontrent à la surface de l'eau
+    texte_en: Concentric ripples meeting on the surface of the water
+  - image: o-03.jpg
+    texte_fr: Gouttes d'eau tombant du cercle en inox poli miroir, ondulations sur le lac
+    texte_en: Water drops falling from the mirror-polished stainless steel ring, ripples on the lake
+  - image: o-04.jpg
+    texte_fr: Une goutte touche l'eau au pied du tube en inox, reflets verts des arbres
+    texte_en: A drop hits the water beside the steel tube, green reflections of the trees
+  - image: o-05.jpg
+    texte_fr: Cercles concentriques autour du point d'impact d'une goutte
+    texte_en: Concentric circles around a drop's point of impact
+  - image: o-06.png
+    texte_fr: Dessin du motif d'interférence formé par les ondes du cercle « O »
+    texte_en: Drawing of the interference pattern formed by the ripples of the 'O' ring
 ---
 
 ## fr

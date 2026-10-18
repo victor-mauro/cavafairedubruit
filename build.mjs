@@ -16,6 +16,7 @@ import { pageProjet } from './templates/projet.mjs';
 import { pageExperimentations } from './templates/experimentations.mjs';
 import { pageActualites } from './templates/actualites.mjs';
 import { page404 } from './templates/404.mjs';
+import { urlPublique } from './templates/commun.mjs';
 
 const RACINE = path.dirname(fileURLToPath(import.meta.url));
 const LANGUES = ['fr', 'en'];
@@ -172,18 +173,22 @@ for (const obj of [site, ...Object.values(pages), ...projets, ...experimentation
     if (cle.endsWith('_fr') && obj[cle.replace(/_fr$/, '_en')] === undefined) avertissements.push(`${obj.slug} : « ${cle.replace(/_fr$/, '_en')} » manquant`);
   }
   if (obj.corps.fr && !obj.corps.en) avertissements.push(`${obj.slug} : section « ## en » manquante`);
+  for (const a of obj.alt ?? []) {
+    if (a.texte_en === undefined) avertissements.push(`${obj.slug} : texte alternatif anglais manquant pour ${a.image}`);
+  }
 }
 
-// Empreinte du CSS et du JS, ajoutée à leur adresse (site.js?v=…) : après chaque mise en
-// ligne, les navigateurs rechargent les nouveaux fichiers au lieu de garder l'ancienne version.
+// Empreinte du CSS, du JS et du favicon, ajoutée à leur adresse (site.js?v=…) : après chaque
+// mise en ligne, les navigateurs rechargent les nouveaux fichiers au lieu de garder l'ancienne version.
 const empreinte = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(RACINE, f))).digest('hex').slice(0, 8);
-const versions = { css: empreinte('css/site.css'), js: empreinte('js/site.js') };
+const versions = { css: empreinte('css/site.css'), js: empreinte('js/site.js'), icone: empreinte('images/interface/favicon.png') };
+const avertir = (message) => avertissements.push(message);
 
 const ecrites = [];
 for (const langue of LANGUES) {
   const dossier = langue === 'fr' ? '' : `${langue}/`;
   const ctx = (fichier, typePage) => ({
-    langue, langues: LANGUES, site, projets, experimentations, actualites, infoImage, versions,
+    langue, langues: LANGUES, site, projets, experimentations, actualites, infoImage, versions, avertir,
     fichier, typePage, racine: langue === 'fr' ? '' : '../',
   });
   ecrites.push(ecrire(`${dossier}index.html`, pageAccueil(ctx('index.html', 'accueil'), pages.accueil)));
@@ -192,6 +197,31 @@ for (const langue of LANGUES) {
   ecrites.push(ecrire(`${dossier}actualites.html`, pageActualites(ctx('actualites.html', 'actualites'), pages.actualites)));
 }
 ecrites.push(ecrire('404.html', page404({ site, versions })));
+
+// sitemap.xml : la liste des pages à indexer, chacune avec sa version dans l'autre langue.
+// robots.txt : autorise tout le site sauf les sources du générateur, et indique le sitemap.
+const fichiersPages = ['index.html', ...projets.map((p) => `${p.slug}.html`), 'experimentations.html', 'actualites.html'];
+const entreesSitemap = fichiersPages.flatMap((fichier) =>
+  LANGUES.map((langue) => {
+    const ctx = { site, fichier };
+    const alternatives = [...LANGUES, 'x-default'].map(
+      (l) => `\n    <xhtml:link rel="alternate" hreflang="${l}" href="${urlPublique(ctx, l === 'x-default' ? 'fr' : l)}"/>`
+    );
+    return `  <url>\n    <loc>${urlPublique(ctx, langue)}</loc>${alternatives.join('')}\n  </url>`;
+  })
+);
+ecrire('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${entreesSitemap.join('\n')}
+</urlset>
+`);
+ecrire('robots.txt', `User-agent: *
+Disallow: /content/
+Disallow: /templates/
+Disallow: /build.mjs
+
+Sitemap: ${site.url}/sitemap.xml
+`);
 
 // ---------------------------------------------------------------------------
 // 4. Vérification des liens et ressources internes de chaque page générée
@@ -210,9 +240,10 @@ for (const relatif of ecrites) {
   }
 }
 
-console.log(`${ecrites.length} pages générées.`);
-if (avertissements.length) {
-  console.log(`\n${avertissements.length} avertissement(s) :`);
-  for (const a of avertissements) console.log(`  - ${a}`);
+console.log(`${ecrites.length} pages générées, plus sitemap.xml et robots.txt.`);
+const uniques = [...new Set(avertissements)]; // une image manquante est signalée une fois, pas par langue
+if (uniques.length) {
+  console.log(`\n${uniques.length} avertissement(s) :`);
+  for (const a of uniques) console.log(`  - ${a}`);
   process.exitCode = 1;
 }

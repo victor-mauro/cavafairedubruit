@@ -20,7 +20,7 @@ function experimentation(ctx, exp) {
   let contenu;
   if (exp.photos) {
     const images = exp.photos
-      .map((f, i) => image(ctx, 'experimentations', f, { classe: `exp__photo${i === 0 ? ' est-active' : ''}` }))
+      .map((f, i) => image(ctx, 'experimentations', f, { classe: `exp__photo${i === 0 ? ' est-active' : ''}`, source: exp }))
       .join('');
     contenu = `<div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand">${images}</div>`;
   } else {
@@ -29,7 +29,7 @@ function experimentation(ctx, exp) {
 
   const texte = [exp.date, t(exp, 'texte', langue)].filter(Boolean).join('\n');
   return `<article class="exp exp--${exp.format}" style="--rangees: ${format.rangees}; --format: ${ratioCss(format.ratio)}" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="${echapper(titre)}" data-curseur="grand" data-logo="glitch">${image(ctx, 'experimentations', vignette)}</button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="${echapper(titre)}" data-curseur="grand" data-logo="glitch">${image(ctx, 'experimentations', vignette, { source: exp })}</button>
           <div class="exp__contenu">${contenu}</div>
           <div class="exp__texte">
             <h2 class="exp__titre">${echapper(titre)}</h2>
@@ -47,7 +47,7 @@ export function pageExperimentations(ctx, page) {
     </main>`;
   return document(ctx, {
     titre: t(page, 'onglet', ctx.langue),
-    description: t(ctx.site, 'description', ctx.langue),
+    description: t(page, 'description', ctx.langue),
     classeBody: 'page page--experimentations',
     contenu,
   });

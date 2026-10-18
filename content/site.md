@@ -10,8 +10,18 @@ google_site_verification: nIahMMXcwiUtqYca_nTgI7AQlyh5T_W_Ul0k-FSikB0
 # fait du motif des points lui-même (le re-tramage l'effacerait) ; elles restent lissées.
 bitmaps_lisses: [o-06.png]
 
-description_fr: Ça va faire du bruit. explore la dimension sensorielle d'objets et de dispositifs sonores, lumineux ou tactiles.
-description_en: Ça va faire du bruit. explores the sensory dimension of objects and devices built around sound, light and touch.
+# Référencement (invisible à l'écran) : description de l'accueil dans Google et dans les aperçus
+# de partage, auteur du site (données structurées), image d'aperçu des pages sans image propre.
+description_fr: Victor Mauro, designer. Ça va faire du bruit. explore la dimension sensorielle d'objets et de dispositifs sonores, lumineux ou tactiles.
+description_en: Victor Mauro, designer. Ça va faire du bruit. explores the sensory dimension of objects and devices built around sound, light and touch.
+auteur: Victor Mauro
+metier_fr: designer
+metier_en: designer
+# Adresses des profils (Instagram, LinkedIn…), reliées à l'auteur pour Google. Exemple :
+# profils: [https://www.instagram.com/…, https://www.linkedin.com/in/…]
+image_partage: images/interface/partage.jpg
+image_partage_alt_fr: Page d'accueil de ça va faire du bruit. : comètes jaunes sur un motif de points
+image_partage_alt_en: ça va faire du bruit. home page: yellow comets on a dot pattern
 
 menu_projets_fr: PROJETS
 menu_projets_en: PROJECTS

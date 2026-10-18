@@ -15,7 +15,7 @@ function actualite(ctx, a) {
   }
   const texte = [a.date, t(a, 'texte', langue)].filter(Boolean).join('\n');
   const photos = a.photos
-    ? `\n          <div class="actu__photos">${a.photos.map((f) => image(ctx, 'actualites', f)).join('')}</div>`
+    ? `\n          <div class="actu__photos">${a.photos.map((f) => image(ctx, 'actualites', f, { source: a })).join('')}</div>`
     : '';
   return `<article class="actu"${a.photos ? ' data-logo="pixel"' : ''}>
           <h2 class="actu__titre">${echapper(t(a, 'titre', langue))}</h2>
@@ -33,7 +33,7 @@ export function pageActualites(ctx, page) {
     </main>`;
   return document(ctx, {
     titre: t(page, 'onglet', ctx.langue),
-    description: t(ctx.site, 'description', ctx.langue),
+    description: t(page, 'description', ctx.langue),
     classeBody: 'page page--actualites',
     contenu,
   });

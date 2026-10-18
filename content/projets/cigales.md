@@ -5,8 +5,9 @@ menu_fr: Cigales
 menu_en: Cigales
 titre_fr: CIGALES
 titre_en: CIGALES
-onglet_fr: CIGALES
-onglet_en: CIGALES
+# onglet : titre de l'onglet et du résultat Google (suivi de « — ça va faire du bruit. »).
+onglet_fr: Cigales, installation sonore
+onglet_en: Cigales, a sound installation
 
 credits:
   - rubrique_fr: Avec
@@ -22,6 +23,16 @@ medias:
     hash: 4a43a95534
     format_video: 16/9
   - image: cigales-02.png
+
+# Textes alternatifs des images (alt) : lus par Google et les lecteurs d'écran,
+# invisibles à l'écran. Un élément par image : nom du fichier, puis le texte en français et en anglais.
+alt:
+  - image: cigales-01.jpg
+    texte_fr: Vasque monolithique à la surface texturée devant une paroi de lattes courbe, projet Zou Maë à la Design Parade Toulon 2019
+    texte_en: Monolithic basin with a textured surface in front of a curved slatted wall, Zou Maë project, Design Parade Toulon 2019
+  - image: cigales-02.png
+    texte_fr: Boîtier rond dont les capteurs à ultrason dessinent un visage étonné
+    texte_en: Round housing whose ultrasonic sensors form a surprised face
 ---
 
 ## fr

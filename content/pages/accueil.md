@@ -1,7 +1,8 @@
 ---
 # Page d'accueil (index.html) : texte d'introduction sur fond animé (comètes).
-onglet_fr: ça va faire du bruit.
-onglet_en: ça va faire du bruit.
+# Titre de l'onglet et titre principal pour Google (masqué dans la page).
+onglet_fr: ça va faire du bruit. — Victor Mauro, designer
+onglet_en: ça va faire du bruit. — Victor Mauro, designer
 # Couleurs possibles du motif de fond (une est tirée au hasard à chaque chargement).
 # Gamme des vignettes d'expérimentations : bleu clair, rose, corail.
 # Le jaune (couleur des comètes) et le bleu foncé sont volontairement exclus.

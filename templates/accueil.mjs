@@ -2,7 +2,7 @@
 // Fond : couleur neutre + motif bitmap dont la couleur change à chaque chargement,
 // comètes jaunes qui se baladent au défilement / glissé / mouvement de souris (voir site.js),
 // texte d'introduction par-dessus.
-import { document, t, markdown } from './commun.mjs';
+import { document, echapper, t, markdown } from './commun.mjs';
 
 export function pageAccueil(ctx, page) {
   const i = `${ctx.racine}images/interface/`;
@@ -22,7 +22,9 @@ export function pageAccueil(ctx, page) {
   </div>
   `;
 
+  // Titre principal de la page (h1) : lu par Google, masqué à l'écran.
   const contenu = `<main class="intro">
+      <h1 class="visuellement-cache">${echapper(t(page, 'onglet', ctx.langue))}</h1>
       <div class="intro__texte">${markdown(page.corps[ctx.langue] ?? page.corps.fr, { paragraphes: true })}</div>
     </main>`;
 
