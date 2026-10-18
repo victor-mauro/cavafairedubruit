@@ -1,0 +1,719 @@
+/* ==========================================================================
+   ça va faire du bruit. — feuille de style unique du site
+   --------------------------------------------------------------------------
+   Remplace normalize.css, webflow.css et cavafairedubruit.webflow.css.
+   Toutes les tailles sont en vw : la mise en page est une grille de 6 colonnes
+   (1 colonne = 16,666 % de la largeur) qui s'adapte proportionnellement à l'écran.
+
+   Points de rupture :
+     > 991 px   ordinateur (curseur personnalisé actif)
+     ≤ 991 px   tablette : même mise en page, curseur système, intro plus grande
+     ≤ 767 px   mobile : en-tête avec logo horizontal, menu déroulant, une colonne
+     ≤ 479 px   petit mobile : textes agrandis
+
+   Sommaire
+     1. Polices              7. Pages projets
+     2. Variables            8. Diaporamas et vidéos
+     3. Base                 9. Expérimentations
+     4. Curseur              10. Actualités
+     5. Logo, en-tête        11. Accueil (motif, comètes, intro)
+     6. Menu, contact, FR/EN 12. Page 404
+   ========================================================================== */
+
+
+/* 1. POLICES ---------------------------------------------------------------
+   Seules ces trois graisses sont utilisées sur le site. */
+
+@font-face {
+  font-family: "GT Pressura";
+  src: url("../fonts/gt-pressura-light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: block;
+}
+@font-face {
+  font-family: "GT Pressura";
+  src: url("../fonts/gt-pressura-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: "GT Pressura Mono";
+  src: url("../fonts/gt-pressura-mono-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: block;
+}
+
+
+/* 2. VARIABLES ------------------------------------------------------------- */
+
+:root {
+  /* Couleurs */
+  --bleu-nuit: #002f4c;      /* textes, liens */
+  --beige: #e6dcc8;          /* fond neutre, survol, page en cours */
+  --jaune: #ffff00;          /* langue active, CONTACT ouvert, comètes */
+  --blanc: #fff;
+  --motif: #b1d0f8;          /* couleur du motif bitmap (accueil : tirée au hasard, voir accueil.md) */
+  /* Gamme des vignettes d'expérimentations (référence) */
+  --corail: #fc785a;
+  --rose: #f0a0be;
+  --bleu-clair: #b1d0fa;
+  --bleu: #2882aa;
+
+  /* Polices */
+  --pressura: "GT Pressura", sans-serif;
+  --mono: "GT Pressura Mono", sans-serif;
+
+  /* Grille et espacements */
+  --colonne: 16.666%;        /* 1 colonne sur 6 */
+  --g: .575vw;               /* espace de base (demi-gouttière) ; 1.725vw sur mobile */
+  --entete: 0px;             /* hauteur réservée à l'en-tête mobile */
+
+  /* Corps de texte */
+  --texte-taille: 1.64vw;
+  --texte-interligne: 1.94vw;
+  --menu-taille: 1.1vw;
+  --menu-interligne: 1.4vw;
+  --intro-taille: 3.04vw;
+  --intro-interligne: 3.325vw;
+}
+@media (max-width: 991px) {
+  :root { --intro-taille: 6.08vw; --intro-interligne: 6.65vw; }
+}
+@media (max-width: 767px) {
+  :root {
+    --g: 1.725vw;
+    --entete: 9.055vw;
+    --texte-taille: 3.28vw;
+    --texte-interligne: 3.88vw;
+    --menu-taille: 2.2vw;
+    --menu-interligne: 2.8vw;
+    --intro-taille: 5.472vw;
+    --intro-interligne: 5.985vw;
+  }
+}
+@media (max-width: 479px) {
+  :root {
+    --entete: 10.219vw;
+    --texte-taille: 4.264vw;
+    --texte-interligne: 5.044vw;
+    --menu-taille: 3.718vw;
+    --menu-interligne: 4.732vw;
+  }
+}
+
+
+/* 3. BASE ------------------------------------------------------------------ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--blanc);
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+img { max-width: 100%; height: auto; vertical-align: middle; display: inline-block; border: 0; }
+h1, h2, h3, p { margin: 0; font-size: inherit; font-weight: inherit; }
+a { color: inherit; text-decoration: none; }
+button { margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: inherit; cursor: pointer; }
+strong { font-weight: 400; }              /* mot mis en avant : graisse normale au lieu de light */
+iframe { border: 0; }
+
+/* Texte sélectionné : beige, sans surlignage */
+::selection { color: var(--beige); background: transparent; }
+
+/* Masqué à l'écran mais lu par les lecteurs d'écran */
+.visuellement-cache {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Bandes blanches fixes en haut et en bas de l'écran (sauf accueil et 404) :
+   les images qui défilent disparaissent sous une marge nette. */
+.page--projet::before, .page--projet::after,
+.page--experimentations::before, .page--experimentations::after,
+.page--actualites::before, .page--actualites::after {
+  content: "";
+  position: fixed;
+  left: 0; right: 0;
+  z-index: 4000;
+  height: 1.115vw;
+  background: var(--blanc);
+  pointer-events: none;
+}
+.page::before { top: 0; }
+.page::after { bottom: 0; }
+@media (max-width: 767px) {
+  .page::before { display: none; }
+  .page::after { height: 3.45vw; }
+}
+
+/* Conteneur principal de toutes les pages (au-dessus du fond animé de l'accueil) */
+.cadre { position: relative; z-index: 1000; display: flex; min-height: 100vh; }
+@media (max-width: 767px) {
+  .cadre { flex-direction: column; min-height: auto; }
+}
+
+
+/* 4. CURSEUR PERSONNALISÉ (ordinateur) --------------------------------------
+   Intention : un petit soleil jaune pixelisé remplace le pointeur ; il grossit
+   sur les images cliquables (data-curseur="grand") et laisse la place au
+   pointeur normal sur les liens, boutons et vidéos.
+   Activé par site.js (classe html.curseur-actif) seulement sur écran > 991 px
+   avec une souris : rien ne change sur tablette et mobile. */
+
+html.curseur-actif body { cursor: none; }
+html.curseur-actif a[href], html.curseur-actif button { cursor: pointer; }
+html.curseur-actif [data-curseur="grand"] { cursor: none; }
+
+.curseur {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+html.curseur-actif .curseur { display: flex; }
+html.curseur-actif .curseur.est-cache { display: none; }
+.curseur img {
+  position: absolute;
+  transform: translate(var(--x, 0px), var(--y, -110vh)); /* position de la souris par rapport au centre */
+}
+.curseur__petit { width: 50px; opacity: 0; transition: opacity .5s .5s; }
+html.curseur-visible .curseur__petit { opacity: 1; }
+.curseur__grand { width: 70px; opacity: 0; transition: opacity .2s ease; }
+.curseur.est-grand .curseur__grand { opacity: 1; transition-duration: .5s; }
+
+
+/* 5. LOGO ET EN-TÊTE MOBILE --------------------------------------------------
+   Intention : le logo « grésille ». Trois images superposées, une seule visible :
+     - logo__une-fois : GIF qui s'anime une fois au chargement (état normal)
+     - logo__pixel    : version pixel figée (CONTACT ouvert, survol d'une actualité,
+                        et « glitch » de 0,2 s au survol / clic d'une image)
+     - logo__boucle   : GIF pixel en boucle, au survol du logo
+   États posés sur <html> par site.js : .logo-pixel (durable), .logo-glitch (0,2 s). */
+
+.logo {
+  position: fixed;
+  left: 0; bottom: 0;
+  z-index: 1500;
+  padding: 0 0 1.15vw 1.15vw;
+  color: #333;
+}
+.logo img { height: 4vw; display: none; }
+html:not(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__une-fois,
+html:is(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__pixel,
+.logo:hover .logo__boucle { display: inline-block; }
+
+/* En-tête mobile : bandeau blanc fixe avec le logo horizontal, qui ouvre le menu */
+.entete-mobile { display: none; }
+
+@media (max-width: 767px) {
+  .logo { display: none; }
+  .entete-mobile {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
+    display: flex;
+    height: 10.78vw;
+    padding: 3.45vw;
+    background: var(--blanc);
+  }
+  .entete-mobile img { display: none; height: 3.88vw; min-height: 3.88px; }
+  .entete-mobile .entete-mobile__une-fois { display: inline-block; }
+  html.logo-glitch .entete-mobile .entete-mobile__une-fois { display: none; }
+  html.logo-glitch .entete-mobile .entete-mobile__pixel { display: inline-block; }
+}
+@media (max-width: 479px) {
+  .entete-mobile { height: 11.944vw; }
+  .entete-mobile img { height: 5.044vw; min-height: 5.044vw; }
+}
+
+
+/* 6. MENU, CONTACT, FR/EN -----------------------------------------------------
+   Ordinateur : colonne fixe à gauche (1 colonne), FR.EN fixé en bas à droite.
+   Mobile : panneau blanc sous l'en-tête, qui se déplie au toucher du logo. */
+
+.menu {
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  z-index: 10;
+  width: var(--colonne);
+  padding: .575vw .575vw 0 1.15vw;
+}
+.menu__rubrique {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--g) 0;
+}
+.menu__lien {
+  margin: 0;
+  color: var(--bleu-nuit);
+  font-family: var(--mono);
+  font-size: var(--menu-taille);
+  font-weight: 400;
+  line-height: var(--menu-interligne);
+  text-align: left;
+}
+.menu__lien:hover,
+.menu__lien[aria-current="page"],
+.menu__lien.est-actif { color: var(--beige); }
+
+/* Liste des projets (pages projets uniquement) : projet en cours en beige, sans retrait */
+.menu__projets {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--g) 0;
+  overflow: hidden;
+}
+.menu__projet { padding-left: 1.6vw; font-family: var(--pressura); font-weight: 300; }
+.menu__projet[aria-current="page"] { padding-left: 0; }
+
+/* CONTACT : au survol (au toucher sur mobile), le mot passe en jaune et les
+   coordonnées se déplient (0,3 s), puis se replient (0,2 s). */
+.contact__bouton:hover { color: var(--bleu-nuit); }
+.contact.est-ouvert .contact__bouton { color: var(--jaune); }
+.contact__details {
+  display: grid;
+  grid-template-rows: 0fr;              /* replié : hauteur 0 */
+  transition: grid-template-rows .2s linear;
+}
+.contact.est-ouvert .contact__details {
+  grid-template-rows: 1fr;              /* déplié : hauteur du contenu */
+  transition: grid-template-rows .3s ease;
+}
+@media (hover: hover) {
+  .contact:hover .contact__details { grid-template-rows: 1fr; transition: grid-template-rows .3s ease; }
+}
+.contact__interieur { min-height: 0; overflow: hidden; }
+.contact__groupe {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--g) 0;
+  white-space: pre-wrap;
+}
+.contact__ligne {
+  padding-left: 1.6vw;
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--menu-taille);
+  font-weight: 300;
+  line-height: var(--menu-interligne);
+}
+a.contact__ligne:hover { color: var(--beige); }
+.contact__espace { height: 1.15vw; }
+
+/* FR.EN : langue active en jaune ; fixé en bas à droite sur ordinateur */
+.langues {
+  position: fixed;
+  right: 0; bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 0 1.15vw .8vw 0;
+}
+.langues__lien,
+.langues__point {
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: 1.86vw;
+  font-weight: 300;
+  line-height: 2.16vw;
+  text-transform: uppercase;
+}
+.langues__lien.est-active { color: var(--jaune); }
+.langues__point { display: block; width: .4vw; white-space: nowrap; }
+
+@media (max-width: 767px) {
+  /* Le menu devient un panneau qui se déplie sous l'en-tête (0,2 s) */
+  .menu {
+    bottom: auto; right: 0;
+    width: auto;
+    margin-top: var(--entete);
+    padding: 0;
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows .2s ease;
+  }
+  html.menu-ouvert .menu { grid-template-rows: 1fr; }
+  .menu__panneau {
+    overflow: hidden;
+    padding: 0 3.45vw;
+    background: var(--blanc);
+  }
+  .menu__panneau::after { content: ""; display: block; height: 1.725vw; } /* marge basse, repliée avec le menu */
+  .menu__lien, .contact__ligne, .credits__titre, .credits__noms a,
+  .projet__navigation a, .actu__lien { letter-spacing: .04em; }
+  .menu__projets { display: none; }
+  .contact__ligne { padding-left: 2.08vw; }
+  .contact__espace { display: none; }
+  .langues { position: relative; padding: 0; }
+  .langues__lien {
+    font-family: var(--mono);
+    font-size: var(--menu-taille);
+    font-weight: 400;
+    line-height: var(--menu-interligne);
+    letter-spacing: 0;
+  }
+  .langues__point { width: .8vw; visibility: hidden; }
+}
+@media (max-width: 479px) {
+  .langues__point { width: .3rem; }
+}
+
+
+/* 7. PAGES PROJETS --------------------------------------------------------------
+   Ordinateur : menu (1 col.) | texte fixe (2 col.) | images qui défilent (3 col.).
+   Mobile : titre, images, puis texte, crédits et liens précédent / suivant. */
+
+.projet {
+  position: absolute;
+  left: var(--colonne);
+  display: flex;
+  width: 83.333%;
+  min-height: 100vh;
+}
+.projet__titre { /* visible sur mobile seulement */
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--texte-taille);
+  font-weight: 300;
+  line-height: var(--texte-interligne);
+}
+.projet__medias {
+  flex: none;
+  width: 60%;
+  margin-left: 40%;
+  padding: .575vw .575vw .575vw 0;
+}
+.projet__texte {
+  position: fixed;
+  top: 0; bottom: 0;
+  left: var(--colonne);
+  width: 33.333%;
+  min-height: 100vh;
+  padding: .575vw .575vw 0;
+}
+.texte {
+  padding: .575vw 0;
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--texte-taille);
+  font-weight: 300;
+  line-height: var(--texte-interligne);
+}
+.texte a, .credits__noms a { color: var(--bleu-nuit); }
+.texte a:hover, .credits__noms a:hover { color: var(--beige); }
+
+/* Crédits : colonnes côte à côte (2 colonnes = 50 % chacune) */
+.credits { display: flex; justify-content: center; padding: 1.725vw 0 1.15vw; }
+.credits__colonne { flex: 1 1 0; }
+.credits__titre {
+  color: var(--bleu-nuit);
+  font-family: var(--mono);
+  font-size: var(--menu-taille);
+  font-weight: 400;
+  line-height: var(--menu-interligne);
+  text-transform: uppercase;
+}
+.credits__noms {
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--menu-taille);
+  font-weight: 300;
+  line-height: var(--menu-interligne);
+}
+.projet__navigation { display: none; }
+
+/* Colonne d'images : chaque bloc (image, vidéo, diaporama, paire) a la même marge */
+.media { display: block; width: 100%; padding: var(--g); }
+div.media { display: flex; flex-direction: column; justify-content: center; }
+.paire { display: flex; }
+.paire .media { width: 50%; }
+
+@media (max-width: 767px) {
+  .projet {
+    position: relative;
+    left: 0;
+    flex-direction: column;
+    width: 100%;
+    margin-top: var(--entete);
+  }
+  .projet__titre { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; padding: 1.725vw 3.477vw; }
+  .projet__medias { width: 100%; margin-left: 0; padding: 0 1.725vw; }
+  .projet__texte { position: relative; left: 0; width: 100%; min-height: 0; padding: 0 1.752vw; }
+  .texte { padding: 1.725vw; }
+  .credits { padding: 5.175vw 1.725vw 3.45vw; }
+  .projet__navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 3.45vw 1.725vw;
+  }
+  .projet__navigation a {
+    color: var(--bleu-nuit);
+    font-family: var(--mono);
+    font-size: var(--menu-taille);
+    line-height: var(--menu-interligne);
+    text-transform: uppercase;
+  }
+}
+
+
+/* 8. DIAPORAMAS ET VIDÉOS ---------------------------------------------------------
+   Diaporama : images empilées au même endroit (grille 1 case) ; l'image active
+   apparaît en fondu enchaîné (durée --duree, réglée par data-duree).
+   Comportement (site.js) : défilement automatique (data-delai), clic = image suivante,
+   glissé du doigt = suivante / précédente (data-glisser). */
+
+.diaporama { position: relative; display: grid; }
+.diaporama > * {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity var(--duree, 1s) ease;
+}
+.diaporama > .est-active { opacity: 1; z-index: 1; }
+
+/* Vidéo : cadre noir au format des photos (6:5 sur les projets), vidéo centrée dedans */
+.video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: var(--format, 6 / 5);
+  background: #000;
+}
+.video iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--format-video, 16 / 9);
+}
+
+
+/* 9. EXPÉRIMENTATIONS -------------------------------------------------------------
+   Grille de 2 colonnes « en quinconce » : la hauteur d'une rangée vaut la moitié
+   d'une vignette paysage (4:3). Une vignette occupe 2 rangées (paysage 4:3),
+   3 rangées (carré 8:9) ou 4 rangées (portrait 2:3) : --rangees, posé par le gabarit.
+   Au clic, la vignette est remplacée par ses photos ou sa vidéo (classe .est-ouverte)
+   et son texte apparaît dans la colonne de gauche (ordinateur). */
+
+.exps {
+  position: absolute;
+  left: var(--colonne);
+  display: flex;
+  width: 83.333%;
+  min-height: 100vh;
+}
+.exps__grille {
+  /* largeur utile d'une image dans une colonne de la grille */
+  --largeur-image: calc((66.6664vw - .575vw) / 2 - 1.15vw);
+  position: relative;
+  left: 20%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: calc(var(--largeur-image) * .375 + .575vw);
+  align-content: start;
+  width: 80%;
+  padding: .575vw .575vw .575vw 0;
+}
+.exp { position: relative; grid-row: span var(--rangees, 2); }
+.exp__vignette, .exp__contenu { display: block; width: 100%; height: 100%; padding: var(--g); }
+.exp__vignette img,
+.exp__contenu .diaporama,
+.exp__contenu .diaporama img { width: 100%; height: 100%; object-fit: cover; }
+.exp__contenu { display: none; }
+.exp__contenu .video { height: 100%; aspect-ratio: auto; }
+.exp.est-ouverte .exp__vignette { display: none; }
+.exp.est-ouverte .exp__contenu { display: block; }
+
+/* Texte de l'expérimentation ouverte : colonne fixe entre le menu et la grille */
+.exp__texte {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: var(--colonne);
+  width: var(--colonne);
+  padding: .575vw .575vw 0;
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--texte-taille);
+  font-weight: 300;
+  line-height: var(--texte-interligne);
+}
+.exp.est-ouverte .exp__texte { display: block; }
+.exp__titre { margin-top: .575vw; font-weight: 400; text-transform: uppercase; }
+.exp__texte a { color: var(--bleu-nuit); font-weight: 400; }
+.exp__texte a:hover { color: var(--beige); }
+
+@media (max-width: 767px) {
+  .exps { position: relative; left: 0; flex-direction: column; width: 100%; margin-top: var(--entete); }
+  .exps__grille { display: flex; flex-direction: column; left: auto; width: 100%; padding: 1.725vw; }
+  .exp__vignette, .exp__contenu { height: auto; }
+  .exp__vignette img, .exp__contenu .diaporama, .exp__contenu .diaporama img { height: auto; }
+  .exp__contenu .video { height: auto; aspect-ratio: var(--format); }
+  /* Texte non affiché sur mobile (évolution prévue plus tard) */
+  .exp.est-ouverte .exp__texte { display: none; }
+}
+
+
+/* 10. ACTUALITÉS ---------------------------------------------------------------------
+   Liste sur la moitié gauche ; au survol d'une actualité, ses deux photos
+   apparaissent à droite, alignées sur le haut de l'actualité (ordinateur). */
+
+.actus {
+  position: absolute;
+  left: var(--colonne);
+  display: flex;
+  width: 83.333%;
+  min-height: 100vh;
+  padding-bottom: 8.5px;
+}
+.actus__liste {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  min-height: 100vh;
+  padding: .575vw;
+}
+.actu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.15vw;
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--texte-taille);
+  font-weight: 300;
+  line-height: var(--texte-interligne);
+}
+.actu__titre { margin-top: .575vw; font-weight: 400; text-transform: uppercase; }
+.actu__lien { color: var(--beige); }
+.actu__photos {
+  position: absolute;          /* par rapport à .actus : à droite de la liste */
+  left: 60%;
+  display: none;
+  width: 40%;
+  padding-right: 8.5px;
+}
+.actu__photos img { width: 50%; padding: .575vw .575vw 0; }
+.actu:hover .actu__photos { display: flex; }
+
+@media (max-width: 767px) {
+  .actus { position: relative; left: 0; flex-direction: column; width: 100%; min-height: 0; margin-top: var(--entete); padding-bottom: 0; }
+  .actus__liste { width: 100%; padding: 1.725vw; }
+  .actu { margin-bottom: 1.725vw; }
+  .actu__titre, .actu__texte, .actu__lien { padding: 0 1.725vw; }
+  .actu__photos img { display: none; }
+}
+@media (max-width: 479px) {
+  .actus__liste { min-height: 0; }
+}
+
+
+/* 11. ACCUEIL --------------------------------------------------------------------------
+   Fond : couleur neutre + motif bitmap, dont la couleur (--motif) est tirée au hasard
+   à chaque chargement. Le motif est un masque (images/interface/motif.png) : on peut
+   donc le colorer librement. Par-dessus : les comètes (site.js), puis le texte. */
+
+/* Fond plein écran de l'accueil */
+.motif {
+  position: fixed;
+  inset: 0;
+  background-color: var(--beige);
+  animation: apparition .1s ease both;   /* le motif apparaît en fondu au chargement */
+}
+/* Le motif est dessiné dans ::before (couleur --motif découpée par le masque PNG),
+   sur le fond, l'en-tête mobile et le menu mobile de l'accueil. --motif-position
+   aligne le motif de ces trois éléments pour qu'ils se raccordent sans couture. */
+.motif, .page--accueil .entete-mobile, .menu--accueil .menu__panneau { isolation: isolate; }
+.motif::before,
+.page--accueil .entete-mobile::before,
+.menu--accueil .menu__panneau::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--motif);
+  -webkit-mask: url("../images/interface/motif.png") var(--motif-position, 0 0) / auto repeat;
+  mask: url("../images/interface/motif.png") var(--motif-position, 0 0) / auto repeat;
+}
+@keyframes apparition { from { opacity: 0; } }
+
+/* Comètes : calque fixe plein écran, sous le texte ; positions et rotations par site.js */
+.cometes { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.comete {
+  position: absolute;
+  top: 0; left: 0;
+  max-width: none;
+  transform: translate(-200vw, 0);   /* hors champ tant que le script n'a pas placé la comète */
+  will-change: transform;
+}
+
+.intro { flex: 1 1 auto; margin: 0 16.66%; padding: .575vw .575vw 0; }
+.intro__texte {
+  margin-bottom: 32px;
+  color: var(--bleu-nuit);
+  font-family: var(--pressura);
+  font-size: var(--intro-taille);
+  font-weight: 300;
+  line-height: var(--intro-interligne);
+  letter-spacing: .3px;
+}
+.intro__texte p + p { margin-top: var(--intro-interligne); }  /* une ligne vide entre paragraphes */
+
+@media (max-width: 767px) {
+  .motif { --motif-position: 50% 0; }
+  /* En-tête et menu de l'accueil : même fond que la page, motif aligné sur celui de la page */
+  .page--accueil .entete-mobile { background: var(--beige); --motif-position: 50% 0; }
+  /* Menu de l'accueil : panneau plein écran ; sa hauteur fixe (100vh) s'anime directement */
+  .menu.menu--accueil { display: block; height: 0; transition: height .2s ease; }
+  html.menu-ouvert .menu.menu--accueil { height: 100vh; }
+  .menu--accueil .menu__panneau {
+    position: relative;
+    height: 100vh;
+    background: var(--beige);
+    --motif-position: 50% calc(-1 * var(--entete));
+  }
+  .intro { margin: var(--entete) 0 0; padding: 1.725vw 3.45vw 0; }
+  .intro__texte { letter-spacing: .1px; }
+}
+@media (max-width: 479px) {
+  .intro__texte { margin-bottom: 27px; }
+}
+
+
+/* 12. PAGE 404 ----------------------------------------------------------------------------
+   Motif bleu plein écran (sur blanc) et logo pixel animé au centre. */
+
+.introuvable {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  isolation: isolate;
+}
+.introuvable::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--motif);
+  -webkit-mask: url("../images/interface/motif.png") 0 0 / cover no-repeat;
+  mask: url("../images/interface/motif.png") 0 0 / cover no-repeat;
+}
+.introuvable__lien { margin-bottom: 15px; } /* léger décalage vers le haut, comme l'ancienne page */
