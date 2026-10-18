@@ -96,10 +96,10 @@ function head(ctx, { titre, description, scriptTete = '' }) {
   ${alternatives}
   <link rel="preload" href="${r}fonts/gt-pressura-light.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="${r}fonts/gt-pressura-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="${r}css/site.css">
+  <link rel="stylesheet" href="${r}css/site.css?v=${ctx.versions.css}">
   <link rel="icon" href="${r}images/interface/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="${r}images/interface/webclip.gif">${scriptTete}
-  <script src="${r}js/site.js" defer></script>
+  <script src="${r}js/site.js?v=${ctx.versions.js}" defer></script>
 </head>`;
 }
 
@@ -127,13 +127,11 @@ function menu(ctx) {
   const surProjet = ctx.typePage === 'projet';
   const liste = projets
     .map((p) => `<a class="menu__lien menu__projet" href="${p.slug}.html"${courant(`${p.slug}.html`)}>${echapper(t(p, 'menu', langue))}</a>`)
-    .join('\n              ');
+    .join('\n            ');
   const rubriqueProjets = `<div class="projets${surProjet ? ' est-ouvert' : ''}">
           <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="${projets[0].slug}.html" aria-expanded="${surProjet}" aria-controls="liste-projets">${t(site, 'menu_projets', langue)}</a></div>
-          <div class="projets__liste" id="liste-projets">
-            <div class="menu__projets">
-              ${liste}
-            </div>
+          <div class="menu__projets" id="liste-projets">
+            ${liste}
           </div>
         </div>`;
   const lien = (fichier, cle) => `<div class="menu__rubrique"><a class="menu__lien" href="${fichier}"${courant(fichier)}>${t(site, cle, langue)}</a></div>`;

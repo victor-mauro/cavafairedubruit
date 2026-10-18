@@ -274,25 +274,18 @@ html:is(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__pixel,
 .menu__lien:hover,
 .menu__lien[aria-current="page"] { color: var(--beige); }
 
-/* PROJETS : un clic déplie la liste des projets (0,3 s) ou la replie (0,2 s), comme CONTACT.
-   Dépliée d'office sur les pages projets ; PROJETS passe alors en beige.
-   Ouverture au clic et non au survol : la liste repousse les rubriques suivantes.
-   Variante « instantanée » (plus low tech) : remplacer les deux transitions par « none ». */
+/* PROJETS : un clic affiche la liste des projets d'un coup, sans animation (choix « low tech »,
+   dans l'esprit des bitmaps) ; un second clic la masque. Dépliée d'office sur les pages
+   projets ; PROJETS est alors en beige. Ouverture au clic et non au survol : la liste
+   repousse les rubriques suivantes. */
 .projets.est-ouvert .projets__bouton { color: var(--beige); }
-.projets__liste {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .2s linear;
-}
-.projets.est-ouvert .projets__liste { grid-template-rows: 1fr; transition: grid-template-rows .3s ease; }
 .menu__projets {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 0;
-  overflow: hidden;
+  padding: var(--g) 0;
 }
-.menu__projets::before, .menu__projets::after { content: ""; height: var(--g); } /* marges, repliées avec la liste */
+.projets.est-ouvert .menu__projets { display: flex; }
 .menu__projet { padding-left: 1.6vw; font-family: var(--pressura); font-weight: 300; }
 .menu__projet[aria-current="page"] { padding-left: 0; }
 

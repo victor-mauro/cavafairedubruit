@@ -11,7 +11,7 @@ export function page404(ctx) {
   <title>Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/site.css?v=${ctx.versions.css}">
   <link rel="icon" href="/images/interface/favicon.png" type="image/png">
 </head>
 <body class="page page--404">

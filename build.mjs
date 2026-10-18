@@ -8,6 +8,7 @@
 // Vérifie au passage : images manquantes, textes anglais manquants, liens internes cassés.
 
 import fs from 'node:fs';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pageAccueil } from './templates/accueil.mjs';
@@ -173,11 +174,16 @@ for (const obj of [site, ...Object.values(pages), ...projets, ...experimentation
   if (obj.corps.fr && !obj.corps.en) avertissements.push(`${obj.slug} : section « ## en » manquante`);
 }
 
+// Empreinte du CSS et du JS, ajoutée à leur adresse (site.js?v=…) : après chaque mise en
+// ligne, les navigateurs rechargent les nouveaux fichiers au lieu de garder l'ancienne version.
+const empreinte = (f) => crypto.createHash('md5').update(fs.readFileSync(path.join(RACINE, f))).digest('hex').slice(0, 8);
+const versions = { css: empreinte('css/site.css'), js: empreinte('js/site.js') };
+
 const ecrites = [];
 for (const langue of LANGUES) {
   const dossier = langue === 'fr' ? '' : `${langue}/`;
   const ctx = (fichier, typePage) => ({
-    langue, langues: LANGUES, site, projets, experimentations, actualites, infoImage,
+    langue, langues: LANGUES, site, projets, experimentations, actualites, infoImage, versions,
     fichier, typePage, racine: langue === 'fr' ? '' : '../',
   });
   ecrites.push(ecrire(`${dossier}index.html`, pageAccueil(ctx('index.html', 'accueil'), pages.accueil)));
@@ -185,7 +191,7 @@ for (const langue of LANGUES) {
   ecrites.push(ecrire(`${dossier}experimentations.html`, pageExperimentations(ctx('experimentations.html', 'experimentations'), pages.experimentations)));
   ecrites.push(ecrire(`${dossier}actualites.html`, pageActualites(ctx('actualites.html', 'actualites'), pages.actualites)));
 }
-ecrites.push(ecrire('404.html', page404({ site })));
+ecrites.push(ecrire('404.html', page404({ site, versions })));
 
 // ---------------------------------------------------------------------------
 // 4. Vérification des liens et ressources internes de chaque page générée
