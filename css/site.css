@@ -699,6 +699,7 @@ div.media { display: flex; flex-direction: column; justify-content: center; }
      découpée au bord de l'en-tête, sous le logo (img en position relative, après la copie). */
   .cometes--entete { position: absolute; }
   .entete-mobile .comete { display: block; }
+  html.menu-ouvert .cometes--entete { visibility: hidden; } /* menu ouvert : son panneau cache les comètes */
   .page--accueil .entete-mobile > img { position: relative; }
   /* Menu de l'accueil : panneau plein écran ; sa hauteur fixe (100vh) s'anime directement */
   .menu.menu--accueil { display: block; height: 0; transition: height .2s ease; }
@@ -714,6 +715,21 @@ div.media { display: flex; flex-direction: column; justify-content: center; }
 }
 @media (max-width: 479px) {
   .intro__texte { margin-bottom: 27px; }
+}
+
+/* Texture « nuages » (tirée au hasard, voir accueil.md) : motif-nuages.png (1920 × 1336, 1 bit),
+   affiché une seule fois à sa taille réelle, centré en haut ; agrandi seulement si l'écran est
+   plus grand que l'image. Même réglage pour l'en-tête et le menu mobiles, pour qu'ils se raccordent. */
+html[data-motif="nuages"] .motif { --motif-position: 50% 0; }
+html[data-motif="nuages"] .motif::before,
+html[data-motif="nuages"] .entete-mobile::before,
+html[data-motif="nuages"] .menu__panneau::before {
+  -webkit-mask-image: url("../images/interface/motif-nuages.png");
+  mask-image: url("../images/interface/motif-nuages.png");
+  -webkit-mask-size: max(1920px, 100vw, 143.7vh) auto;
+  mask-size: max(1920px, 100vw, 143.7vh) auto;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 

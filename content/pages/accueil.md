@@ -7,6 +7,9 @@ onglet_en: ça va faire du bruit. — Victor Mauro, designer
 # Gamme des vignettes d'expérimentations : bleu clair, rose, corail.
 # Le jaune (couleur des comètes) et le bleu foncé sont volontairement exclus.
 couleurs_motif: ["#b1d0f8", "#f0a0be", "#fc785a"]
+# Textures possibles du motif (une tirée au hasard à chaque chargement, indépendamment de la couleur) :
+# vagues = images/interface/motif.png (répété), nuages = images/interface/motif-nuages.png (une seule fois).
+motifs: [vagues, nuages]
 ---
 
 ## fr
