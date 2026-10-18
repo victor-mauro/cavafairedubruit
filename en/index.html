@@ -27,9 +27,9 @@
 <body class="page page--accueil">
   <div class="motif motif--accueil" aria-hidden="true"></div>
   <div class="cometes" aria-hidden="true">
-    <img class="comete" src="../images/interface/comete-1.png" width="684" height="471" alt="" data-comete="grande">
-    <img class="comete" src="../images/interface/comete-2.png" width="333" height="221" alt="" data-comete="moyenne">
-    <img class="comete" src="../images/interface/comete-3.png" width="247" height="165" alt="" data-comete="petite">
+    <img class="comete" src="../images/interface/comete-1.png" width="687" height="457" alt="" data-comete="grande" data-tete="-4.4">
+    <img class="comete" src="../images/interface/comete-2.png" width="274" height="289" alt="" data-comete="moyenne" data-tete="-59.3">
+    <img class="comete" src="../images/interface/comete-3.png" width="238" height="179" alt="" data-comete="petite" data-tete="-167.5">
   </div>
   <a class="logo" href="index.html" aria-label="ça va faire du bruit.">
     <img class="logo__une-fois" src="../images/interface/logo-vertical.gif" alt=""><img class="logo__pixel" src="../images/interface/logo-vertical-pixel.png" alt=""><img class="logo__boucle" src="../images/interface/logo-vertical-boucle.gif" alt="">
@@ -40,7 +40,19 @@
     </button>
     <nav class="menu menu--accueil" id="menu" aria-label="Menu">
       <div class="menu__panneau">
-        <div class="menu__rubrique"><a class="menu__lien" href="o.html">PROJECTS</a></div>
+        <div class="projets">
+          <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="o.html" aria-expanded="false" aria-controls="liste-projets">PROJECTS</a></div>
+          <div class="projets__liste" id="liste-projets">
+            <div class="menu__projets">
+              <a class="menu__lien menu__projet" href="o.html">'O' Fountain</a>
+              <a class="menu__lien menu__projet" href="cadran.html">Cadran</a>
+              <a class="menu__lien menu__projet" href="compact.html">Compact</a>
+              <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
+              <a class="menu__lien menu__projet" href="pan.html">Pan</a>
+              <a class="menu__lien menu__projet" href="pedalodynamo.html">Pedalo Dynamo</a>
+            </div>
+          </div>
+        </div>
         <div class="menu__rubrique"><a class="menu__lien" href="experimentations.html">EXPERIMENTS</a></div>
         <div class="menu__rubrique"><a class="menu__lien" href="actualites.html">NEWS</a></div>
         <div class="contact">

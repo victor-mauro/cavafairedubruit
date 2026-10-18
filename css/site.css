@@ -122,6 +122,12 @@ button { margin: 0; padding: 0; border: 0; background: none; color: inherit; fon
 strong { font-weight: 400; }              /* mot mis en avant : graisse normale au lieu de light */
 iframe { border: 0; }
 
+/* Images tramées (bitmaps 1 bit, petits carrés) : affichées sans lissage pour garder des
+   carrés nets. PNG de contenu : seulement quand ils sont agrandis (classe .net posée par
+   site.js, section 8) ; motif et comètes de l'accueil : toujours. */
+img.bitmap.net, .comete, .motif::before,
+.page--accueil .entete-mobile::before, .menu--accueil .menu__panneau::before { image-rendering: pixelated; }
+
 /* Texte sélectionné : beige, sans surlignage */
 ::selection { color: var(--beige); background: transparent; }
 
@@ -266,18 +272,26 @@ html:is(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__pixel,
   text-align: left;
 }
 .menu__lien:hover,
-.menu__lien[aria-current="page"],
-.menu__lien.est-actif { color: var(--beige); }
+.menu__lien[aria-current="page"] { color: var(--beige); }
 
-/* Liste des projets (pages projets uniquement) : projet en cours en beige, sans retrait */
+/* PROJETS : un clic déplie la liste des projets (0,3 s) ou la replie (0,2 s), comme CONTACT.
+   Dépliée d'office sur les pages projets ; PROJETS passe alors en beige.
+   Ouverture au clic et non au survol : la liste repousse les rubriques suivantes. */
+.projets.est-ouvert .projets__bouton { color: var(--beige); }
+.projets__liste {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .2s linear;
+}
+.projets.est-ouvert .projets__liste { grid-template-rows: 1fr; transition: grid-template-rows .3s ease; }
 .menu__projets {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: var(--g) 0;
+  min-height: 0;
   overflow: hidden;
 }
+.menu__projets::before, .menu__projets::after { content: ""; height: var(--g); } /* marges, repliées avec la liste */
 .menu__projet { padding-left: 1.6vw; font-family: var(--pressura); font-weight: 300; }
 .menu__projet[aria-current="page"] { padding-left: 0; }
 
@@ -357,8 +371,8 @@ a.contact__ligne:hover { color: var(--beige); }
   .menu__panneau::after { content: ""; display: block; height: 1.725vw; } /* marge basse, repliée avec le menu */
   .menu__lien, .contact__ligne, .credits__titre, .credits__noms a,
   .projet__navigation a, .actu__lien { letter-spacing: .04em; }
-  .menu__projets { display: none; }
-  .contact__ligne { padding-left: 2.08vw; }
+  .menu__projet, .contact__ligne { padding-left: 2.08vw; }
+  .menu__projet[aria-current="page"] { padding-left: 0; }
   .contact__espace { display: none; }
   .langues { position: relative; padding: 0; }
   .langues__lien {
@@ -635,13 +649,10 @@ div.media { display: flex; flex-direction: column; justify-content: center; }
   background-color: var(--beige);
   animation: apparition .1s ease both;   /* le motif apparaît en fondu au chargement */
 }
-/* Le motif est dessiné dans ::before (couleur --motif découpée par le masque PNG),
-   sur le fond, l'en-tête mobile et le menu mobile de l'accueil. --motif-position
-   aligne le motif de ces trois éléments pour qu'ils se raccordent sans couture. */
-.motif, .page--accueil .entete-mobile, .menu--accueil .menu__panneau { isolation: isolate; }
-.motif::before,
-.page--accueil .entete-mobile::before,
-.menu--accueil .menu__panneau::before {
+/* Le motif est dessiné dans ::before : la couleur --motif découpée par le masque PNG.
+   Sur mobile, l'en-tête et le menu de l'accueil reçoivent le même motif (plus bas). */
+.motif { isolation: isolate; }
+.motif::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -676,7 +687,19 @@ div.media { display: flex; flex-direction: column; justify-content: center; }
 
 @media (max-width: 767px) {
   .motif { --motif-position: 50% 0; }
-  /* En-tête et menu de l'accueil : même fond que la page, motif aligné sur celui de la page */
+  /* En-tête et menu de l'accueil : même fond que la page ; --motif-position aligne leur
+     motif sur celui de la page pour qu'ils se raccordent sans couture. */
+  .page--accueil .entete-mobile, .menu--accueil .menu__panneau { isolation: isolate; }
+  .page--accueil .entete-mobile::before,
+  .menu--accueil .menu__panneau::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--motif);
+    -webkit-mask: url("../images/interface/motif.png") var(--motif-position) / auto repeat;
+    mask: url("../images/interface/motif.png") var(--motif-position) / auto repeat;
+  }
   .page--accueil .entete-mobile { background: var(--beige); --motif-position: 50% 0; }
   /* Menu de l'accueil : panneau plein écran ; sa hauteur fixe (100vh) s'anime directement */
   .menu.menu--accueil { display: block; height: 0; transition: height .2s ease; }

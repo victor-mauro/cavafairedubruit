@@ -33,7 +33,19 @@
     </button>
     <nav class="menu" id="menu" aria-label="Menu">
       <div class="menu__panneau">
-        <div class="menu__rubrique"><a class="menu__lien" href="o.html">PROJETS</a></div>
+        <div class="projets">
+          <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="o.html" aria-expanded="false" aria-controls="liste-projets">PROJETS</a></div>
+          <div class="projets__liste" id="liste-projets">
+            <div class="menu__projets">
+              <a class="menu__lien menu__projet" href="o.html">Fontaine 'O'</a>
+              <a class="menu__lien menu__projet" href="cadran.html">Cadran</a>
+              <a class="menu__lien menu__projet" href="compact.html">Compact</a>
+              <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
+              <a class="menu__lien menu__projet" href="pan.html">Pan</a>
+              <a class="menu__lien menu__projet" href="pedalodynamo.html">Pedalo Dynamo</a>
+            </div>
+          </div>
+        </div>
         <div class="menu__rubrique"><a class="menu__lien" href="experimentations.html" aria-current="page">EXPÉRIMENTATIONS</a></div>
         <div class="menu__rubrique"><a class="menu__lien" href="actualites.html">ACTUALITÉS</a></div>
         <div class="contact">
@@ -60,7 +72,7 @@
       <h1 class="visuellement-cache">EXPÉRIMENTATIONS</h1>
       <div class="exps__grille">
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Ailes" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/ailes-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Ailes" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/ailes-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand"><img class="exp__photo est-active" src="images/experimentations/ailes-01.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/ailes-02.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/ailes-03.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/ailes-04.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/ailes-05.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/ailes-06.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/ailes-07.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Ailes</h2>
@@ -68,7 +80,7 @@
           </div>
         </article>
         <article class="exp exp--carre" style="--rangees: 3; --format: 8 / 9" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Atelier participatif" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/atelier-participatif-00.png" width="800" height="900" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Atelier participatif" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/atelier-participatif-00.png" width="800" height="900" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand"><img class="exp__photo est-active" src="images/experimentations/atelier-participatif-01.jpg" width="800" height="900" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/atelier-participatif-02.jpg" width="800" height="900" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/atelier-participatif-03.jpg" width="800" height="900" alt="" loading="lazy" decoding="async"></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Atelier participatif</h2>
@@ -76,7 +88,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Atelier cortenais" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/atelier-cortenais-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Atelier cortenais" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/atelier-cortenais-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand"><img class="exp__photo est-active" src="images/experimentations/atelier-cortenais-01.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/atelier-cortenais-02.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/atelier-cortenais-03.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Atelier cortenais</h2>
@@ -84,7 +96,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Stand M&amp;O" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/stand-mo-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Stand M&amp;O" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/stand-mo-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand"><img class="exp__photo est-active" src="images/experimentations/stand-mo-01.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/stand-mo-02.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/stand-mo-03.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/stand-mo-04.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/stand-mo-05.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Stand M&amp;O</h2>
@@ -92,7 +104,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Embrouille" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/embrouille-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Embrouille" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/embrouille-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand"><img class="exp__photo est-active" src="images/experimentations/embrouille-01.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/embrouille-02.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Embrouille</h2>
@@ -100,7 +112,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Relief MIDI" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/relief-midi-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Relief MIDI" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/relief-midi-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/205087872?h=74158fcf84&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Relief MIDI" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Relief MIDI</h2>
@@ -108,7 +120,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Partition sonore" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/partition-sonore-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Partition sonore" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/partition-sonore-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/196246796?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Partition sonore" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Partition sonore</h2>
@@ -116,7 +128,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Las Estrellas" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/las-estrellas-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Las Estrellas" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/las-estrellas-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 4 / 3"><iframe src="https://player.vimeo.com/video/403307743?h=707cb3fe55&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Las Estrellas" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Las Estrellas</h2>
@@ -124,7 +136,7 @@
           </div>
         </article>
         <article class="exp exp--portrait" style="--rangees: 4; --format: 2 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Flûte compact L" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/flute-compact-l-00.png" width="800" height="1200" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Flûte compact L" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/flute-compact-l-00.png" width="800" height="1200" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/378613228?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Flûte compact L" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Flûte compact L</h2>
@@ -132,7 +144,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Narcisse et Echo" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/narcisse-et-echo-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Narcisse et Echo" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/narcisse-et-echo-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="diaporama diaporama--exp" data-diaporama data-duree="100" data-curseur="grand"><img class="exp__photo est-active" src="images/experimentations/narcisse-et-echo-01.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/narcisse-et-echo-02.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><img class="exp__photo" src="images/experimentations/narcisse-et-echo-03.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Narcisse et Echo</h2>
@@ -140,7 +152,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Trou du souffleur" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/trou-du-souffleur-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Trou du souffleur" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/trou-du-souffleur-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/291734083?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Trou du souffleur" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Trou du souffleur</h2>
@@ -148,7 +160,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Captation sonore" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/captation-sonore-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Captation sonore" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/captation-sonore-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/347518815?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Captation sonore" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Captation sonore</h2>
@@ -156,7 +168,7 @@
           </div>
         </article>
         <article class="exp exp--portrait" style="--rangees: 4; --format: 2 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Ciabot del pra" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/ciabot-del-pra-00.png" width="800" height="1200" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Ciabot del pra" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/ciabot-del-pra-00.png" width="800" height="1200" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 2 / 3"><iframe src="https://player.vimeo.com/video/353380084?h=1f1dc18a72&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Ciabot del pra" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Ciabot del pra</h2>
@@ -164,7 +176,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Trumpette" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/trumpette-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Trumpette" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/trumpette-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 4 / 3"><iframe src="https://player.vimeo.com/video/204925088?h=b919ff9154&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Trumpette" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Trumpette</h2>
@@ -172,7 +184,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="City stage" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/city-stage-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="City stage" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/city-stage-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 1000 / 561"><iframe src="https://player.vimeo.com/video/196247152?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="City stage" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">City stage</h2>
@@ -180,7 +192,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="écho" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/echo-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="écho" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/echo-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/210410933?h=c75cbfd89a&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="écho" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">écho</h2>
@@ -188,7 +200,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Contact" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/contact-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Contact" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/contact-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/390929785?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Contact" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Contact</h2>
@@ -196,7 +208,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Toogle" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/toogle-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Toogle" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/toogle-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/291745566?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Toogle" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Toogle</h2>
@@ -204,7 +216,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Soundwich" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/soundwich-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Soundwich" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/soundwich-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/347692290?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Soundwich" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Soundwich</h2>
@@ -212,7 +224,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Scooter et mer" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/scooter-et-mer-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Scooter et mer" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/scooter-et-mer-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/208688827?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Scooter et mer" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Scooter et mer</h2>
@@ -220,7 +232,7 @@
           </div>
         </article>
         <article class="exp exp--carre" style="--rangees: 3; --format: 8 / 9" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Tromolo" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/tromolo-00.png" width="800" height="900" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Tromolo" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/tromolo-00.png" width="800" height="900" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/206202079?loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Tromolo" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Tromolo</h2>
@@ -228,7 +240,7 @@
           </div>
         </article>
         <article class="exp exp--paysage" style="--rangees: 2; --format: 4 / 3" data-exp>
-          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Sainte Victoire" data-curseur="grand" data-logo="glitch"><img src="images/experimentations/sainte-victoire-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
+          <button class="exp__vignette" type="button" aria-expanded="false" aria-label="Sainte Victoire" data-curseur="grand" data-logo="glitch"><img class="bitmap" src="images/experimentations/sainte-victoire-00.png" width="800" height="600" alt="" loading="lazy" decoding="async"></button>
           <div class="exp__contenu"><div class="video video--exp" style="--format-video: 4 / 3"><iframe src="https://player.vimeo.com/video/353756215?h=d7e71df490&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Sainte Victoire" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
           <div class="exp__texte">
             <h2 class="exp__titre">Sainte Victoire</h2>

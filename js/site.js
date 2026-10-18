@@ -10,6 +10,8 @@
      5. Diaporamas  : fondu enchaîné, défilement auto, clic, glissé
      6. Expérimentations : une vignette cliquée laisse place à ses photos / sa vidéo
      7. Accueil     : comètes qui se baladent au défilement / glissé / souris
+     8. Bitmaps     : images tramées affichées sans lissage quand c'est possible
+   (4 bis : la rubrique PROJETS déplie la liste des projets.)
    ========================================================================== */
 (() => {
   'use strict';
@@ -107,6 +109,21 @@
   }
 
 
+  /* 4 bis. PROJETS ----------------------------------------------------------------------
+     Un clic sur PROJETS déplie / replie la liste des projets (transition dans site.css)
+     au lieu d'ouvrir directement le projet le plus récent (lien conservé sans JavaScript). */
+
+  const projets = document.querySelector('.projets');
+  if (projets) {
+    const bouton = projets.querySelector('.projets__bouton');
+    bouton.setAttribute('role', 'button');
+    bouton.addEventListener('click', (e) => {
+      e.preventDefault();
+      bouton.setAttribute('aria-expanded', String(projets.classList.toggle('est-ouvert')));
+    });
+  }
+
+
   /* 5. DIAPORAMAS -----------------------------------------------------------------------
      <div data-diaporama data-delai="5000" data-duree="800" data-glisser> + images.
      - fondu enchaîné de data-duree ms (CSS, section 8) ;
@@ -178,7 +195,8 @@
      doigt, flèches du clavier) et, plus doucement, quand il bouge la souris ; un élan les
      fait ralentir peu à peu. Elles avancent toujours vers l'avant : la tête (partie
      lumineuse) devant, la queue derrière. Une comète sortie de l'écran repart d'un autre bord.
-     Les images comete-*.png ont la tête tournée vers la droite (0°). */
+     Les images comete-*.png gardent leurs pixels d'origine ; data-tete indique la direction
+     de leur tête (degrés), retranchée de l'angle de la trajectoire. */
 
   const calque = document.querySelector('.cometes');
   if (calque) {
@@ -195,6 +213,7 @@
 
     const cometes = Array.from(calque.querySelectorAll('[data-comete]')).map((img) => ({
       img, ...REGLAGES[img.dataset.comete], largeur0: img.width, hauteur0: img.height,
+      tete: (Number(img.dataset.tete) || 0) * Math.PI / 180,
     }));
 
     // Taille affichée de chaque comète selon l'écran
@@ -269,7 +288,7 @@
       const [x0, y0] = echantillons[i - 1], [x1, y1] = echantillons[i];
       const t = (c.distance - longueurs[i - 1]) / (longueurs[i] - longueurs[i - 1] || 1);
       const x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * t;
-      const angle = Math.atan2(y1 - y0, x1 - x0);
+      const angle = Math.atan2(y1 - y0, x1 - x0) - c.tete; // tête dans le sens de la marche
       const p = c.distance / total;
       const echelle = c.echelles[0] + (c.echelles[1] - c.echelles[0]) * p;
       c.img.style.transform = `translate(${x - c.largeur / 2}px, ${y - c.hauteur / 2}px) rotate(${angle}rad) scale(${echelle})`;
@@ -329,4 +348,28 @@
       cometes.forEach((c) => { const p = c.distance / c.trajet.total; nouveauTrajet(c); c.distance = p * c.trajet.total; placer(c); });
     });
   }
+
+
+  /* 8. BITMAPS NETS ----------------------------------------------------------------------------
+     Les PNG de contenu (classe .bitmap) sont tramés en petits carrés (1 bit). Le navigateur les
+     lisse quand il les agrandit, ce qui floute les carrés : on les affiche « pixelisés »
+     (classe .net, voir site.css) dès que l'image est affichée au moins à sa taille réelle
+     en pixels de l'écran. Quand elle est réduite, le lissage est gardé (sinon des points
+     disparaîtraient et le dessin se déformerait). */
+
+  const bitmaps = document.querySelectorAll('img.bitmap');
+  function ajusterBitmap(img) {
+    if (!img.naturalWidth) return;
+    const pixelsEcran = img.getBoundingClientRect().width * window.devicePixelRatio;
+    img.classList.toggle('net', pixelsEcran >= img.naturalWidth * 0.98);
+  }
+  bitmaps.forEach((img) => {
+    if (img.complete) ajusterBitmap(img);
+    img.addEventListener('load', () => ajusterBitmap(img));
+  });
+  let attenteBitmaps;
+  window.addEventListener('resize', () => {
+    clearTimeout(attenteBitmaps);
+    attenteBitmaps = setTimeout(() => bitmaps.forEach(ajusterBitmap), 150);
+  });
 })();

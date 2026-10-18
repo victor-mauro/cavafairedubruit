@@ -33,14 +33,18 @@
     </button>
     <nav class="menu" id="menu" aria-label="Menu">
       <div class="menu__panneau">
-        <div class="menu__rubrique"><span class="menu__lien est-actif">PROJECTS</span></div>
-        <div class="menu__projets">
-          <a class="menu__lien menu__projet" href="o.html">'O' Fountain</a>
-          <a class="menu__lien menu__projet" href="cadran.html">Cadran</a>
-          <a class="menu__lien menu__projet" href="compact.html" aria-current="page">Compact</a>
-          <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
-          <a class="menu__lien menu__projet" href="pan.html">Pan</a>
-          <a class="menu__lien menu__projet" href="pedalodynamo.html">Pedalo Dynamo</a>
+        <div class="projets est-ouvert">
+          <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="o.html" aria-expanded="true" aria-controls="liste-projets">PROJECTS</a></div>
+          <div class="projets__liste" id="liste-projets">
+            <div class="menu__projets">
+              <a class="menu__lien menu__projet" href="o.html">'O' Fountain</a>
+              <a class="menu__lien menu__projet" href="cadran.html">Cadran</a>
+              <a class="menu__lien menu__projet" href="compact.html" aria-current="page">Compact</a>
+              <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
+              <a class="menu__lien menu__projet" href="pan.html">Pan</a>
+              <a class="menu__lien menu__projet" href="pedalodynamo.html">Pedalo Dynamo</a>
+            </div>
+          </div>
         </div>
         <div class="menu__rubrique"><a class="menu__lien" href="experimentations.html">EXPERIMENTS</a></div>
         <div class="menu__rubrique"><a class="menu__lien" href="actualites.html">NEWS</a></div>
@@ -73,8 +77,8 @@
         </div>
         <img class="media" src="../images/projets/compact-03.jpg" srcset="../images/projets/compact-03-600.jpg 600w, ../images/projets/compact-03.jpg 1200w" sizes="(max-width: 767px) 97vw, 49vw" width="1200" height="1000" alt="" loading="lazy" decoding="async">
         <div class="media"><div class="video" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/378611004?h=b24a57ddbb&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Compact" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-        <img class="media" src="../images/projets/compact-04.png" width="1200" height="1000" alt="" loading="lazy" decoding="async">
-        <div class="paire"><img class="media" src="../images/projets/compact-05.png" width="600" height="1000" alt="" loading="lazy" decoding="async"><img class="media" src="../images/projets/compact-06.png" width="600" height="1000" alt="" loading="lazy" decoding="async"></div>
+        <img class="media bitmap" src="../images/projets/compact-04.png" width="1200" height="1000" alt="" loading="lazy" decoding="async">
+        <div class="paire"><img class="media bitmap" src="../images/projets/compact-05.png" width="600" height="1000" alt="" loading="lazy" decoding="async"><img class="media bitmap" src="../images/projets/compact-06.png" width="600" height="1000" alt="" loading="lazy" decoding="async"></div>
       </div>
       <div class="projet__texte">
         <div class="texte">Compact is the result of a meeting between a designer and a wind instrument maker. It is a set of bamboo harmonic flutes whose air duct is compacted into a volume machined from a solid block, to make it less bulky. Its red cedar body stands on its own and displays the instrument when it is not being played.</div>

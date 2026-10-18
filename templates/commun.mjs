@@ -37,9 +37,14 @@ export function texteBrut(texte = '') {
   return String(texte).replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
 }
 
-/** Balise <img> avec dimensions réelles et, si une variante -600 existe, un srcset. */
+/**
+ * Balise <img> avec dimensions réelles et, si une variante -600 existe, un srcset.
+ * Les PNG de contenu sont des bitmaps 1 bit (tramage en petits carrés) : classe « bitmap »,
+ * pour que site.js les affiche sans lissage quand c'est possible (voir site.css, « BITMAPS »).
+ */
 export function image(ctx, dossier, fichier, { classe = '', sizes = '', attributs = '' } = {}) {
   const chemin = `images/${dossier}/${fichier}`;
+  if (fichier.endsWith('.png')) classe = `${classe} bitmap`.trim();
   const { largeur, hauteur, variante } = ctx.infoImage(chemin);
   const src = ctx.racine + chemin;
   let srcset = '';
@@ -113,19 +118,20 @@ function enteteMobile(ctx) {
 function menu(ctx) {
   const { site, langue, projets } = ctx;
   const courant = (fichier) => (ctx.fichier === fichier ? ' aria-current="page"' : '');
-  // Rubrique PROJETS : sur une page projet, intitulé inactif + liste des projets ; ailleurs, lien vers le projet le plus récent.
-  let rubriqueProjets;
-  if (ctx.typePage === 'projet') {
-    const liste = projets
-      .map((p) => `<a class="menu__lien menu__projet" href="${p.slug}.html"${courant(`${p.slug}.html`)}>${echapper(t(p, 'menu', langue))}</a>`)
-      .join('\n          ');
-    rubriqueProjets = `<div class="menu__rubrique"><span class="menu__lien est-actif">${t(site, 'menu_projets', langue)}</span></div>
-        <div class="menu__projets">
-          ${liste}
+  // Rubrique PROJETS : un clic déplie / replie la liste des projets (dépliée d'office sur une
+  // page projet). Sans JavaScript, le lien mène au projet le plus récent.
+  const surProjet = ctx.typePage === 'projet';
+  const liste = projets
+    .map((p) => `<a class="menu__lien menu__projet" href="${p.slug}.html"${courant(`${p.slug}.html`)}>${echapper(t(p, 'menu', langue))}</a>`)
+    .join('\n              ');
+  const rubriqueProjets = `<div class="projets${surProjet ? ' est-ouvert' : ''}">
+          <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="${projets[0].slug}.html" aria-expanded="${surProjet}" aria-controls="liste-projets">${t(site, 'menu_projets', langue)}</a></div>
+          <div class="projets__liste" id="liste-projets">
+            <div class="menu__projets">
+              ${liste}
+            </div>
+          </div>
         </div>`;
-  } else {
-    rubriqueProjets = `<div class="menu__rubrique"><a class="menu__lien" href="${projets[0].slug}.html">${t(site, 'menu_projets', langue)}</a></div>`;
-  }
   const lien = (fichier, cle) => `<div class="menu__rubrique"><a class="menu__lien" href="${fichier}"${courant(fichier)}>${t(site, cle, langue)}</a></div>`;
   const tel = String(site.contact_telephone);
   const langues = ctx.langues

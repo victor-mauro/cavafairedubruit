@@ -33,14 +33,18 @@
     </button>
     <nav class="menu" id="menu" aria-label="Menu">
       <div class="menu__panneau">
-        <div class="menu__rubrique"><span class="menu__lien est-actif">PROJECTS</span></div>
-        <div class="menu__projets">
-          <a class="menu__lien menu__projet" href="o.html">'O' Fountain</a>
-          <a class="menu__lien menu__projet" href="cadran.html">Cadran</a>
-          <a class="menu__lien menu__projet" href="compact.html">Compact</a>
-          <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
-          <a class="menu__lien menu__projet" href="pan.html">Pan</a>
-          <a class="menu__lien menu__projet" href="pedalodynamo.html" aria-current="page">Pedalo Dynamo</a>
+        <div class="projets est-ouvert">
+          <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="o.html" aria-expanded="true" aria-controls="liste-projets">PROJECTS</a></div>
+          <div class="projets__liste" id="liste-projets">
+            <div class="menu__projets">
+              <a class="menu__lien menu__projet" href="o.html">'O' Fountain</a>
+              <a class="menu__lien menu__projet" href="cadran.html">Cadran</a>
+              <a class="menu__lien menu__projet" href="compact.html">Compact</a>
+              <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
+              <a class="menu__lien menu__projet" href="pan.html">Pan</a>
+              <a class="menu__lien menu__projet" href="pedalodynamo.html" aria-current="page">Pedalo Dynamo</a>
+            </div>
+          </div>
         </div>
         <div class="menu__rubrique"><a class="menu__lien" href="experimentations.html">EXPERIMENTS</a></div>
         <div class="menu__rubrique"><a class="menu__lien" href="actualites.html">NEWS</a></div>
@@ -78,8 +82,8 @@
           <img class="media" src="../images/projets/pedalodynamo-07.jpg" srcset="../images/projets/pedalodynamo-07-600.jpg 600w, ../images/projets/pedalodynamo-07.jpg 1200w" sizes="(max-width: 767px) 97vw, 49vw" width="1200" height="1000" alt="" loading="lazy" decoding="async">
         </div>
         <div class="media"><div class="video" style="--format-video: 16 / 9"><iframe src="https://player.vimeo.com/video/291724895?h=130a905dfa&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Pedalo Dynamo" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-        <img class="media" src="../images/projets/pedalodynamo-08.png" width="1200" height="1000" alt="" loading="lazy" decoding="async">
-        <div class="paire"><img class="media" src="../images/projets/pedalodynamo-09.png" width="600" height="1000" alt="" loading="lazy" decoding="async"><img class="media" src="../images/projets/pedalodynamo-10.png" width="600" height="1000" alt="" loading="lazy" decoding="async"></div>
+        <img class="media bitmap" src="../images/projets/pedalodynamo-08.png" width="1200" height="1000" alt="" loading="lazy" decoding="async">
+        <div class="paire"><img class="media bitmap" src="../images/projets/pedalodynamo-09.png" width="600" height="1000" alt="" loading="lazy" decoding="async"><img class="media bitmap" src="../images/projets/pedalodynamo-10.png" width="600" height="1000" alt="" loading="lazy" decoding="async"></div>
       </div>
       <div class="projet__texte">
         <div class="texte">Pédalo dynamo grew out of a summery daydream in which the energy festival-goers need (charging a phone, lighting the way…) is produced without too much effort. Pédalo dynamo tells the story of a pedalo-esque landscape wedded to an old-fashioned yet still-used mechanical technology: the dynamo and the bicycle.</div>

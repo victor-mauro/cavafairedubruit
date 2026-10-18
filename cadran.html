@@ -33,14 +33,18 @@
     </button>
     <nav class="menu" id="menu" aria-label="Menu">
       <div class="menu__panneau">
-        <div class="menu__rubrique"><span class="menu__lien est-actif">PROJETS</span></div>
-        <div class="menu__projets">
-          <a class="menu__lien menu__projet" href="o.html">Fontaine 'O'</a>
-          <a class="menu__lien menu__projet" href="cadran.html" aria-current="page">Cadran</a>
-          <a class="menu__lien menu__projet" href="compact.html">Compact</a>
-          <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
-          <a class="menu__lien menu__projet" href="pan.html">Pan</a>
-          <a class="menu__lien menu__projet" href="pedalodynamo.html">Pedalo Dynamo</a>
+        <div class="projets est-ouvert">
+          <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="o.html" aria-expanded="true" aria-controls="liste-projets">PROJETS</a></div>
+          <div class="projets__liste" id="liste-projets">
+            <div class="menu__projets">
+              <a class="menu__lien menu__projet" href="o.html">Fontaine 'O'</a>
+              <a class="menu__lien menu__projet" href="cadran.html" aria-current="page">Cadran</a>
+              <a class="menu__lien menu__projet" href="compact.html">Compact</a>
+              <a class="menu__lien menu__projet" href="cigales.html">Cigales</a>
+              <a class="menu__lien menu__projet" href="pan.html">Pan</a>
+              <a class="menu__lien menu__projet" href="pedalodynamo.html">Pedalo Dynamo</a>
+            </div>
+          </div>
         </div>
         <div class="menu__rubrique"><a class="menu__lien" href="experimentations.html">EXPÉRIMENTATIONS</a></div>
         <div class="menu__rubrique"><a class="menu__lien" href="actualites.html">ACTUALITÉS</a></div>
@@ -76,8 +80,8 @@
           <img class="media" src="images/projets/cadran-04.jpg" srcset="images/projets/cadran-04-600.jpg 600w, images/projets/cadran-04.jpg 1200w" sizes="(max-width: 767px) 97vw, 49vw" width="1200" height="1000" alt="" loading="lazy" decoding="async">
         </div>
         <div class="media"><div class="video" style="--format-video: 6 / 5"><iframe src="https://player.vimeo.com/video/458698606?h=32b7a7fff6&amp;loop=1&amp;color=ffffff&amp;title=0&amp;byline=0&amp;portrait=0" title="Cadran" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>
-        <img class="media" src="images/projets/cadran-05.png" width="1200" height="1000" alt="" loading="lazy" decoding="async">
-        <div class="paire"><img class="media" src="images/projets/cadran-06.png" width="600" height="1000" alt="" loading="lazy" decoding="async"><img class="media" src="images/projets/cadran-07.png" width="600" height="1000" alt="" loading="lazy" decoding="async"></div>
+        <img class="media bitmap" src="images/projets/cadran-05.png" width="1200" height="1000" alt="" loading="lazy" decoding="async">
+        <div class="paire"><img class="media bitmap" src="images/projets/cadran-06.png" width="600" height="1000" alt="" loading="lazy" decoding="async"><img class="media bitmap" src="images/projets/cadran-07.png" width="600" height="1000" alt="" loading="lazy" decoding="async"></div>
       </div>
       <div class="projet__texte">
         <div class="texte">Cadran est une horloge lumineuse. Inspiré du cadran solaire, il questionne notre rapport au temps et sa perception. La lumière du soleil est remplacée par une lumière artificielle laquelle, grâce à une fine tige, génère une ombre projetée qui évolue subtilement selon l'heure de la journée. Le support en granit bouchardé accroche une lumière rasante qui détache les détails de la pierre et la brillance des quartz. Le temps passe mais l'angoisse d'être à la minute près n'existe pas.</div>
