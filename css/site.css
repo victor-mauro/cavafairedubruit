@@ -274,10 +274,10 @@ html:is(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__pixel,
 .menu__lien:hover,
 .menu__lien[aria-current="page"] { color: var(--beige); }
 
-/* PROJETS : un clic affiche la liste des projets d'un coup, sans animation (choix « low tech »,
-   dans l'esprit des bitmaps) ; un second clic la masque. Dépliée d'office sur les pages
-   projets ; PROJETS est alors en beige. Ouverture au clic et non au survol : la liste
-   repousse les rubriques suivantes. */
+/* PROJETS : la liste des projets s'affiche d'un coup, sans animation (choix « low tech »,
+   dans l'esprit des bitmaps) : au survol sur ordinateur, au toucher sur mobile (le clic
+   la fixe ouverte / la referme). Dépliée d'office sur les pages projets ; PROJETS est
+   alors en beige. */
 .projets.est-ouvert .projets__bouton { color: var(--beige); }
 .menu__projets {
   display: none;
@@ -286,6 +286,10 @@ html:is(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__pixel,
   padding: var(--g) 0;
 }
 .projets.est-ouvert .menu__projets { display: flex; }
+@media (hover: hover) {
+  .projets:hover .projets__bouton { color: var(--beige); }
+  .projets:hover .menu__projets { display: flex; }
+}
 .menu__projet { padding-left: 1.6vw; font-family: var(--pressura); font-weight: 300; }
 .menu__projet[aria-current="page"] { padding-left: 0; }
 

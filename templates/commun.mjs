@@ -122,11 +122,12 @@ function enteteMobile(ctx) {
 function menu(ctx) {
   const { site, langue, projets } = ctx;
   const courant = (fichier) => (ctx.fichier === fichier ? ' aria-current="page"' : '');
-  // Rubrique PROJETS : un clic déplie / replie la liste des projets (dépliée d'office sur une
-  // page projet). Sans JavaScript, le lien mène au projet le plus récent.
+  // Rubrique PROJETS : la liste s'affiche au survol (ordinateur) ou au toucher (mobile) ;
+  // dépliée d'office sur une page projet. Survoler un projet fait « grésiller » le logo.
+  // Sans JavaScript, le lien mène au projet le plus récent.
   const surProjet = ctx.typePage === 'projet';
   const liste = projets
-    .map((p) => `<a class="menu__lien menu__projet" href="${p.slug}.html"${courant(`${p.slug}.html`)}>${echapper(t(p, 'menu', langue))}</a>`)
+    .map((p) => `<a class="menu__lien menu__projet" href="${p.slug}.html"${courant(`${p.slug}.html`)} data-logo="glitch">${echapper(t(p, 'menu', langue))}</a>`)
     .join('\n            ');
   const rubriqueProjets = `<div class="projets${surProjet ? ' est-ouvert' : ''}">
           <div class="menu__rubrique"><a class="menu__lien projets__bouton" href="${projets[0].slug}.html" aria-expanded="${surProjet}" aria-controls="liste-projets">${t(site, 'menu_projets', langue)}</a></div>
