@@ -1,5 +1,5 @@
 ---
-ordre: 6
+ordre: 7
 titre_fr: Corse-matin
 titre_en: Corse-Matin
 date: 07.12.2019

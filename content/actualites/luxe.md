@@ -1,5 +1,5 @@
 ---
-ordre: 5
+ordre: 6
 titre_fr: Luxe
 titre_en: Luxe
 date: 01.05.2020

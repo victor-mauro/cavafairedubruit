@@ -1,5 +1,5 @@
 ---
-ordre: 7
+ordre: 8
 titre_fr: prix grand sud - design d'objet
 titre_en: Grand Sud prize - object design
 date: 10.10.2019
