@@ -122,8 +122,8 @@ function enteteMobile(ctx) {
 function menu(ctx) {
   const { site, langue, projets } = ctx;
   const courant = (fichier) => (ctx.fichier === fichier ? ' aria-current="page"' : '');
-  // Rubrique PROJETS : la liste s'affiche au survol (ordinateur) ou au toucher (mobile) ;
-  // dépliée d'office sur une page projet. Survoler un projet fait « grésiller » le logo.
+  // Rubrique PROJETS : un clic affiche / masque la liste des projets, d'un coup ; dépliée
+  // d'office sur une page projet. Survoler un projet fait « grésiller » le logo.
   // Sans JavaScript, le lien mène au projet le plus récent.
   const surProjet = ctx.typePage === 'projet';
   const liste = projets

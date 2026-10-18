@@ -116,10 +116,10 @@
 
 
   /* 4 bis. PROJETS ----------------------------------------------------------------------
-     La liste des projets s'affiche au survol (CSS, ordinateur). Le clic / toucher sur PROJETS
-     l'affiche ou la masque (mobile, clavier) au lieu d'ouvrir directement le projet le plus
-     récent (lien conservé sans JavaScript). Survoler un projet de la liste fait « grésiller »
-     le logo (data-logo="glitch", section 1). */
+     Un clic (ou un toucher) sur PROJETS affiche / masque d'un coup la liste des projets
+     (site.css) au lieu d'ouvrir directement le projet le plus récent (lien conservé sans
+     JavaScript). Survoler un projet de la liste fait « grésiller » le logo
+     (data-logo="glitch", section 1). */
   bloc('projets', () => {
     const projets = document.querySelector('.projets');
     if (projets) {
