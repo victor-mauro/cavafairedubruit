@@ -695,6 +695,11 @@ div.media { display: flex; flex-direction: column; justify-content: center; }
     mask: url("../images/interface/motif.png") var(--motif-position) / auto repeat;
   }
   .page--accueil .entete-mobile { background: var(--beige); --motif-position: 50% 0; }
+  /* Copie des comètes dans l'en-tête (site.js §7) : calée sur le coin haut gauche de l'écran,
+     découpée au bord de l'en-tête, sous le logo (img en position relative, après la copie). */
+  .cometes--entete { position: absolute; }
+  .entete-mobile .comete { display: block; }
+  .page--accueil .entete-mobile > img { position: relative; }
   /* Menu de l'accueil : panneau plein écran ; sa hauteur fixe (100vh) s'anime directement */
   .menu.menu--accueil { display: block; height: 0; transition: height .2s ease; }
   html.menu-ouvert .menu.menu--accueil { height: 100vh; }

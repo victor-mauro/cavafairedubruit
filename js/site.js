@@ -225,8 +225,19 @@
 
       const cometes = Array.from(calque.querySelectorAll('[data-comete]')).map((img) => ({
         img, ...REGLAGES[img.dataset.comete], largeur0: img.width, hauteur0: img.height,
-        tete: (Number(img.dataset.tete) || 0) * Math.PI / 180,
+        tete: (Number(img.dataset.tete) || 0) * Math.PI / 180, images: [img],
       }));
+
+      // En-tête mobile : son fond (même motif que la page) cache le texte qui défile dessous,
+      // donc aussi les comètes, qui y étaient coupées net. On y place une copie des comètes,
+      // entre ce fond et le logo, aux mêmes positions : elles le traversent sans coupure.
+      const entete = document.querySelector('.entete-mobile');
+      if (entete) {
+        const copie = calque.cloneNode(true);
+        copie.classList.add('cometes--entete');
+        entete.prepend(copie);
+        copie.querySelectorAll('[data-comete]').forEach((img, i) => cometes[i].images.push(img));
+      }
 
       // Taille affichée de chaque comète selon l'écran
       function mesurer() {
@@ -235,8 +246,7 @@
           const k = c.ajustement === 'couvrir' ? Math.max(rx, ry) : Math.min(rx, ry);
           c.largeur = c.largeur0 * k;
           c.hauteur = c.hauteur0 * k;
-          c.img.style.width = `${c.largeur}px`;
-          c.img.style.height = `${c.hauteur}px`;
+          c.images.forEach((img) => { img.style.width = `${c.largeur}px`; img.style.height = `${c.hauteur}px`; });
         });
       }
 
@@ -303,7 +313,8 @@
         const angle = Math.atan2(y1 - y0, x1 - x0) - c.tete; // tête dans le sens de la marche
         const p = c.distance / total;
         const echelle = c.echelles[0] + (c.echelles[1] - c.echelles[0]) * p;
-        c.img.style.transform = `translate(${x - c.largeur / 2}px, ${y - c.hauteur / 2}px) rotate(${angle}rad) scale(${echelle})`;
+        const transformation = `translate(${x - c.largeur / 2}px, ${y - c.hauteur / 2}px) rotate(${angle}rad) scale(${echelle})`;
+        c.images.forEach((img) => { img.style.transform = transformation; });
       }
 
       function avancer(c, pas) {
