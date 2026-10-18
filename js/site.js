@@ -351,25 +351,153 @@
 
 
   /* 8. BITMAPS NETS ----------------------------------------------------------------------------
-     Les PNG de contenu (classe .bitmap) sont tramés en petits carrés (1 bit). Le navigateur les
-     lisse quand il les agrandit, ce qui floute les carrés : on les affiche « pixelisés »
-     (classe .net, voir site.css) dès que l'image est affichée au moins à sa taille réelle
-     en pixels de l'écran. Quand elle est réduite, le lissage est gardé (sinon des points
-     disparaîtraient et le dessin se déformerait). */
+     Les PNG de contenu (classe .bitmap) sont des images 1 bit : deux couleurs (papier + encre)
+     posées en petits carrés. Le navigateur lisse les images qu'il redimensionne, ce qui floute
+     les carrés. Selon la taille d'affichage, exprimée en pixels de l'écran :
+     - image affichée à sa taille ou agrandie (Retina, mobile) : affichage sans lissage
+       (classe .net, voir site.css) ;
+     - image réduite (écran standard) : elle est RE-TRAMÉE à la taille exacte d'affichage —
+       proportion locale d'encre calculée, réduite, puis retramée (diffusion d'erreur
+       Floyd-Steinberg à seuil légèrement aléatoire) — et affichée pixel pour pixel ;
+     - data-retramer="non" (liste bitmaps_lisses de content/site.md) : lissage conservé.
+     Recalculé quand la fenêtre change de taille ; les images sont traitées une par une,
+     à l'approche de l'écran, pour ne pas ralentir la page. */
 
-  const bitmaps = document.querySelectorAll('img.bitmap');
-  function ajusterBitmap(img) {
-    if (!img.naturalWidth) return;
-    const pixelsEcran = img.getBoundingClientRect().width * window.devicePixelRatio;
-    img.classList.toggle('net', pixelsEcran >= img.naturalWidth * 0.98);
+  const bitmaps = Array.from(document.querySelectorAll('img.bitmap'));
+  const sources = new Map(); // image -> adresse du fichier d'origine
+
+  // Taille d'affichage en pixels de l'écran (tient compte du recadrage object-fit: cover)
+  function tailleEcran(img) {
+    const r = img.getBoundingClientRect();
+    if (!r.width || !r.height) return null;
+    const nl = img.naturalWidth, nh = img.naturalHeight;
+    const echelle = getComputedStyle(img).objectFit === 'cover' ? Math.max(r.width / nl, r.height / nh) : r.width / nl;
+    const dpr = window.devicePixelRatio || 1;
+    return { largeur: Math.round(nl * echelle * dpr), hauteur: Math.round(nh * echelle * dpr) };
   }
+
+  // Re-tramage d'une image 1 bit (pixels RGBA) à la taille l × h
+  function retramer(pixels, L, H, l, h) {
+    // 1. les deux couleurs et le masque « papier » (1) / « encre » (0)
+    const couleurs = [];
+    const masque = new Float32Array(L * H);
+    for (let i = 0; i < L * H; i++) {
+      const c = (pixels[i * 4] << 24 | pixels[i * 4 + 1] << 16 | pixels[i * 4 + 2] << 8 | pixels[i * 4 + 3]) >>> 0;
+      let k = couleurs.indexOf(c);
+      if (k < 0) { if (couleurs.length === 2) return null; couleurs.push(c); k = couleurs.length - 1; }
+      masque[i] = k === 0 ? 1 : 0;
+    }
+    if (couleurs.length < 2) return null;
+    // 2. réduction par moyenne de surface : proportion de papier dans chaque pixel d'arrivée
+    const reduire = (src, sl, sh, dl, vertical) => {
+      const n = vertical ? sh : sl, d = dl, s = n / d;
+      const dst = new Float32Array(vertical ? sl * d : d * sh);
+      for (let o = 0; o < d; o++) {
+        const a = o * s, b = a + s;
+        for (let j = Math.floor(a); j < Math.min(n, Math.ceil(b)); j++) {
+          const poids = (Math.min(b, j + 1) - Math.max(a, j)) / s;
+          if (vertical) for (let x = 0; x < sl; x++) dst[o * sl + x] += src[j * sl + x] * poids;
+          else for (let y = 0; y < sh; y++) dst[y * d + o] += src[y * sl + j] * poids;
+        }
+      }
+      return dst;
+    };
+    let ton = reduire(reduire(masque, L, H, l, false), l, H, h, true);
+    // 3. léger adoucissement (1-2-1) pour éviter les moirés de l'ancienne trame
+    const adoucir = (t, pas, n) => {
+      const r = new Float32Array(t.length);
+      for (let i = 0; i < t.length; i++) {
+        const p = Math.floor(i / pas) % n;
+        const g = p > 0 ? t[i - pas] : t[i], d = p < n - 1 ? t[i + pas] : t[i];
+        r[i] = (g + 2 * t[i] + d) / 4;
+      }
+      return r;
+    };
+    ton = adoucir(adoucir(ton, 1, l), l, h);
+    // 4. diffusion d'erreur (Floyd-Steinberg, en serpentin) vers deux valeurs ; un seuil
+    //    légèrement aléatoire (suite fixe) évite les damiers réguliers et redonne la
+    //    dispersion « en grappes » des images d'origine
+    let graine = 1;
+    const alea = () => { graine = (graine * 16807) % 2147483647; return graine / 2147483647; };
+    const sortie = new ImageData(l, h);
+    const rgba = couleurs.map((c) => [c >>> 24, c >>> 16 & 255, c >>> 8 & 255, c & 255]);
+    for (let y = 0; y < h; y++) {
+      const gauche = y % 2 === 0;
+      for (let k = 0; k < l; k++) {
+        const x = gauche ? k : l - 1 - k, i = y * l + x;
+        const v = ton[i], papier = v >= 0.5 + (alea() - 0.5) * 0.8, e = v - (papier ? 1 : 0), dx = gauche ? 1 : -1;
+        if (x + dx >= 0 && x + dx < l) ton[i + dx] += e * 7 / 16;
+        if (y + 1 < h) {
+          if (x - dx >= 0 && x - dx < l) ton[i + l - dx] += e * 3 / 16;
+          ton[i + l] += e * 5 / 16;
+          if (x + dx >= 0 && x + dx < l) ton[i + l + dx] += e / 16;
+        }
+        sortie.data.set(rgba[papier ? 0 : 1], i * 4);
+      }
+    }
+    return sortie;
+  }
+
+  function charger(src) {
+    return new Promise((ok, echec) => { const i = new Image(); i.onload = () => ok(i); i.onerror = echec; i.src = src; });
+  }
+
+  async function ajusterBitmap(img) {
+    if (!img.naturalWidth) return;
+    if (!sources.has(img)) sources.set(img, img.currentSrc || img.src);
+    const ecran = tailleEcran(img);
+    if (!ecran || img.dataset.tailleRetramee === `${ecran.largeur}x${ecran.hauteur}`) return;
+    const origine = await charger(sources.get(img));
+    const L = origine.naturalWidth, H = origine.naturalHeight;
+    const reduite = ecran.largeur < L * 0.98;
+    if (!reduite || img.dataset.retramer === 'non') {
+      if (img.src !== sources.get(img)) { img.src = sources.get(img); delete img.dataset.tailleRetramee; }
+      img.classList.toggle('net', !reduite);
+      return;
+    }
+    try {
+      const toile = document.createElement('canvas');
+      toile.width = L; toile.height = H;
+      const c = toile.getContext('2d', { willReadFrequently: true });
+      c.drawImage(origine, 0, 0);
+      const resultat = retramer(c.getImageData(0, 0, L, H).data, L, H, ecran.largeur, ecran.hauteur);
+      if (!resultat) return; // pas une image 1 bit : on garde le lissage
+      toile.width = ecran.largeur; toile.height = ecran.hauteur;
+      c.putImageData(resultat, 0, 0);
+      const blob = await new Promise((ok) => toile.toBlob(ok));
+      if (img.src.startsWith('blob:')) URL.revokeObjectURL(img.src);
+      img.src = URL.createObjectURL(blob);
+      img.dataset.tailleRetramee = `${ecran.largeur}x${ecran.hauteur}`;
+      img.classList.add('net');
+    } catch (e) {
+      // lecture des pixels impossible (ex. page ouverte en file://) : lissage conservé
+    }
+  }
+
+  // File d'attente : une image à la fois, quand le navigateur est disponible
+  const aTraiter = new Set();
+  let enTraitement = false;
+  async function traiter() {
+    if (enTraitement) return;
+    enTraitement = true;
+    while (aTraiter.size) {
+      const img = aTraiter.values().next().value;
+      aTraiter.delete(img);
+      await new Promise((ok) => (window.requestIdleCallback || setTimeout)(ok));
+      await ajusterBitmap(img).catch(() => {});
+    }
+    enTraitement = false;
+  }
+  const observateur = new IntersectionObserver((entrees) => {
+    entrees.forEach((e) => { if (e.isIntersecting) { aTraiter.add(e.target); traiter(); } });
+  }, { rootMargin: '300px' });
   bitmaps.forEach((img) => {
-    if (img.complete) ajusterBitmap(img);
-    img.addEventListener('load', () => ajusterBitmap(img));
+    const suivre = () => observateur.observe(img);
+    if (img.complete && img.naturalWidth) suivre(); else img.addEventListener('load', suivre, { once: true });
   });
   let attenteBitmaps;
   window.addEventListener('resize', () => {
     clearTimeout(attenteBitmaps);
-    attenteBitmaps = setTimeout(() => bitmaps.forEach(ajusterBitmap), 150);
+    attenteBitmaps = setTimeout(() => bitmaps.forEach((img) => { observateur.unobserve(img); observateur.observe(img); }), 200);
   });
 })();

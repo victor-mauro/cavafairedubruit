@@ -1,5 +1,6 @@
 # Contexte local pour Claude Code — ne jamais publier
 CLAUDE.md
+AGENTS.md
 
 # Jetons / secrets — ne JAMAIS publier
 TOKEN*
@@ -13,3 +14,6 @@ Thumbs.db
 
 # Notes de travail perso (optionnel)
 /notes/
+
+# Dépôt local d'images sources (à re-tramer / remplacer) : jamais publié sur le site
+/inbox/

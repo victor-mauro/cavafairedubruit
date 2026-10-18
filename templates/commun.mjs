@@ -40,11 +40,15 @@ export function texteBrut(texte = '') {
 /**
  * Balise <img> avec dimensions réelles et, si une variante -600 existe, un srcset.
  * Les PNG de contenu sont des bitmaps 1 bit (tramage en petits carrés) : classe « bitmap »,
- * pour que site.js les affiche sans lissage quand c'est possible (voir site.css, « BITMAPS »).
+ * que site.js affiche sans lissage ou re-trame à la taille d'affichage (section 8).
+ * Ceux listés dans bitmaps_lisses (content/site.md) gardent le lissage : data-retramer="non".
  */
 export function image(ctx, dossier, fichier, { classe = '', sizes = '', attributs = '' } = {}) {
   const chemin = `images/${dossier}/${fichier}`;
-  if (fichier.endsWith('.png')) classe = `${classe} bitmap`.trim();
+  if (fichier.endsWith('.png')) {
+    classe = `${classe} bitmap`.trim();
+    if ((ctx.site.bitmaps_lisses ?? []).includes(fichier)) attributs += ' data-retramer="non"';
+  }
   const { largeur, hauteur, variante } = ctx.infoImage(chemin);
   const src = ctx.racine + chemin;
   let srcset = '';

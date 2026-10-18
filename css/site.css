@@ -276,7 +276,8 @@ html:is(.logo-pixel, .logo-glitch) .logo:not(:hover) .logo__pixel,
 
 /* PROJETS : un clic déplie la liste des projets (0,3 s) ou la replie (0,2 s), comme CONTACT.
    Dépliée d'office sur les pages projets ; PROJETS passe alors en beige.
-   Ouverture au clic et non au survol : la liste repousse les rubriques suivantes. */
+   Ouverture au clic et non au survol : la liste repousse les rubriques suivantes.
+   Variante « instantanée » (plus low tech) : remplacer les deux transitions par « none ». */
 .projets.est-ouvert .projets__bouton { color: var(--beige); }
 .projets__liste {
   display: grid;

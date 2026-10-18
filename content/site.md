@@ -5,6 +5,11 @@ nom_site: ça va faire du bruit.
 url: https://cavafairedubruit.fr
 google_site_verification: nIahMMXcwiUtqYca_nTgI7AQlyh5T_W_Ul0k-FSikB0
 
+# Images tramées (PNG 1 bit) : sur écran standard, le site les re-trame à la taille exacte
+# d'affichage pour garder des petits carrés nets. Exceptions : images dont le dessin est
+# fait du motif des points lui-même (le re-tramage l'effacerait) ; elles restent lissées.
+bitmaps_lisses: [o-06.png]
+
 description_fr: Ça va faire du bruit. explore la dimension sensorielle d'objets et de dispositifs sonores, lumineux ou tactiles.
 description_en: Ça va faire du bruit. explores the sensory dimension of objects and devices built around sound, light and touch.
 
